@@ -1,0 +1,5 @@
+
+    <h3>SO<span>CIETY</span> <i class="fa-solid fa-users"></i></h3>
+    <?php if(isset($_SESSION['id'])): ?>
+    <p>Salut <?= htmlspecialchars($_SESSION['firstName']) ?> </p>
+    <?php endif; ?>

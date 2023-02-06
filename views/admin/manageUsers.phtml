@@ -1,0 +1,32 @@
+<?php
+ob_start();
+?>      
+  <h1><?= $pageTitle ?></h1> 
+
+  <div class="containerUser">
+    <?php foreach ($users as $user) : ?>
+      <div class="card profileCard" >
+        <div class="containerImg">
+            <img class="img_profil roundImg" src="<?= URL ?>public/images/avatars/<?= htmlspecialchars($user['user_avatar'])?>"  alt="Photo de profil de l'utilisateur">
+        </div>
+        <div class="card-content">
+          <h2 class="openAccount">
+            <a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= htmlspecialchars($user['user_pseudo']) ?>" title="Voir son profil">
+              <?= Tools::concatPrenomNom($user['user_firstname'],$user['user_lastname']); ?>
+            </a>
+          </h2>
+          <?php ($user['user_role'] == 1) ? $userRole = "Admin": $userRole = "User"; ?>
+          <h2><?= $userRole; ?></h2>
+          <div class="btnGroup">
+            <button class="button changeRole" title="Changer le rôle de cet utilisateur" onclick="changeRole(<?= intval($user['user_id']) ?>)">Changer role</button>
+            <button class="button danger" title="Supprimer cet utilisateur" onclick="confirmDeleteUser(<?= intval($user['user_id']) ?>)">Supprimer </button>
+          </div>
+        </div>
+      </div>
+    <?php endforeach ?>
+  </div>
+
+<?php
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>

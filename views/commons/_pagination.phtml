@@ -1,0 +1,16 @@
+        <div class="pagination">
+            <?php if($currentPage > 1 ) :?> 
+            <!-- Lien vers la page précédente (caché si on se trouve sur la 1ère page) -->
+                <a href="<?= URL ?><?= $pageForPagination ?>/<?= $currentPage - 1 ?>">&laquo;</a>
+            <?php endif; ?>
+
+            <?php for($page = 1; $page <= $pagesTotal; $page++): ?>
+            <!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->
+                <a href="<?= URL ?><?= $pageForPagination ?>/<?= $page ?>" class="page-item <?= ($currentPage == $page) ? "active" : "" ?>"><?= $page ?></a>
+            <?php endfor; ?>
+
+            <?php if($currentPage < $pagesTotal) :?> 
+            <!-- Lien vers la page suivante (caché si on se trouve sur la dernière page) -->
+                <a href="<?= URL ?><?= $pageForPagination ?>/<?= $currentPage + 1 ?>">&raquo;</a>
+            <?php endif; ?>
+        </div> 

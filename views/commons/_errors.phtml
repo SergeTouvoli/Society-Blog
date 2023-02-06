@@ -1,0 +1,12 @@
+<?php
+
+if(isset($errors) && !empty($errors) ) : ?>
+    <div id="messagesErrors">
+    <i style="font-size:2.7rem" class="fa-sharp fa-solid fa-circle-exclamation"></i>
+    <ul> 
+            <?php foreach($errors as $error) : ?>
+                <li><?= $error; ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

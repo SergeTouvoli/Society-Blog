@@ -1,0 +1,38 @@
+<?php
+ob_start();
+?>
+  <h1><?= $pageTitle ?></h1>
+
+  <form id="login" method="POST">
+
+    <p class="infoLogin">Tout les champs sont obligatoires</p>
+
+    <?php include('./views/commons/_errors.phtml'); ?>
+    <?php include('./views/commons/_valids.phtml'); ?>
+
+    <div class="inputDiv">
+      <label>Email * </label>
+      <input class="input" type="text" name="user_mail" placeholder="Email" value="<?= $login['email'] ?>" required>
+    </div>
+    
+    <div class="inputDiv passwordField">
+      <label>Mot de passe * </label>
+      <input class="input" id="password" autocomplete="on" type="password" name="user_password" placeholder="Mot de passe" value="<?= $login['password'] ?>" required>
+      <span><i id="eye" class="fa fa-eye show-mdp"></i></span> 
+    </div>
+
+    <div class="inputDiv rememberMe">
+      <label for="remember-me">Se souvenir de moi :</label>
+      <input type="checkbox" id="remember-me" name="remember_me" value="1">
+    </div>
+
+    <button type="submit" class="btnLogin">Se connecter</button>
+
+    <p class="infoLogin" style="margin:0">Pas encore de compte ? <a href="<?= URL ?><?= PAGE_INSCRIPTION ?>">Inscrivez-vous</a></p>
+  </form>
+<?php
+$scripts = '<script src="'.URL.'public/js/login.min.js"></script>';
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>
+

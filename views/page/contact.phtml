@@ -1,0 +1,32 @@
+<?php
+ob_start();
+?>
+    <h1><?= $pageTitle ?></h1>
+    <p class="text-center" style="font-size:2.3rem">Contactez-nous pour toute question ou suggestion.</p>
+    
+    <form id="contact" name="contactForm" action="" method="POST">
+        <?php include('./views/commons/_errors.phtml'); ?>
+        <?php include('./views/commons/_valids.phtml'); ?>
+        
+        <div class="inputDiv">
+            <label>Sujet </label>
+            <input class="input" type="text" id="contactSubject" data-infos="infosSubject" name="contact_subject" placeholder="Saisissez le sujet de votre message" value="<?= $data['subject'] ?>" required>
+            <span class="infosSubject spanInfos"></span>    
+        </div>
+
+        <div class="inputDiv">
+            <label>Contenue </label>
+            <textarea name="contact_content" class="form-control" data-infos="infosContent" placeholder="Saisissez le contenue de votre message" style="height:200px" required><?= $data['content'] ?></textarea>
+            <span class="infosContent spanInfos"></span>    
+        </div>
+
+        <button name="sendMsg" class="btnContact" type="submit" >Envoyez</button>
+    </form>
+
+
+<?php
+$scripts = '<script src="'.URL.'public/js/contact.min.js"></script>';
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>
+

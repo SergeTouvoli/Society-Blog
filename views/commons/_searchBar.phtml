@@ -1,0 +1,21 @@
+
+<div class="searchAndInfos">
+    <div class="container ">
+        <h3>Rechercher un article</h3>
+    </div>
+
+    <form id="recherche" method="POST" action="<?= URL ?>recherche" >
+        <input type="search" id="search" placeholder="Rechercher un article" name="string">
+        <button type="submit"><i class="fa fa-search"></i></button>
+        <ul class="resultSearch"></ul>
+    </form>
+
+    <ul class="listInfos">
+        <li>Utilisateurs inscrits : <?= $nbUsers; ?></li>
+        <li>Dernier utilisateur inscrit :
+            <a href="<?= URL ?>compte/<?= $lastUser['user_pseudo'] ?>"><?= htmlspecialchars($lastUser['user_firstname']) ?> <?= htmlspecialchars($lastUser['user_lastname'])  ?> </a>
+        </li>
+    </ul>
+
+</div>
+

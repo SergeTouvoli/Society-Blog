@@ -1,0 +1,105 @@
+<?php
+ob_start();
+?>
+
+    <div class="row">
+        <div class="leftcolumn">
+            <div class="card-article ">
+                <h2 class="title"><?= $pageTitle ?></h2>
+                <div class="card-img">
+                    <img src="<?= URL ?>public/images/imgPost/<?= $post['post_image'] ?>" class="img_art" alt="image">
+                </div>
+                <div class="infosArticle">
+                    <a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= htmlspecialchars($post['user_pseudo']) ?>" class="infoAuthor" > 
+                        <i class="fa-solid fa-user-pen" ></i>
+                        <span><?= htmlspecialchars($post['user_pseudo']) ?></span>
+                    </a>
+                    <p class="infoDate">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span><?= Tools::convertTimestampToFrenchDate($post['post_created_date']) ?></span>
+                    </p>
+                </div>
+
+                <div class="content"><?= nl2br($post['post_content']) ?></div>
+                           
+                <div class="card-footer">
+                    <p class="back"><a href="javascript:history.back()" class="text-white"><span>Retour</span></a></p> 
+                    <p class="fin">FIN.</p>
+                </div>
+
+                <div class="" id="listComments">  
+                    <?php if (empty($comments)) :?>
+                        <p class="indispo">Aucun commentaires</p>
+                    <?php else : ?>
+                        <h3 class="title">Commentaires</h3>
+                        <?php foreach ($comments as $c) : ?>
+                            
+                            <div class="commentSection">
+                                <a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= htmlspecialchars($c['user_pseudo']) ?>"><img src="<?= URL ?>public/images/avatars/<?= $c['user_avatar']?>" alt="" ></a>
+                                <div class="commentContent">
+                                    <p class="commentAuthor">
+                                        <a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= $c['user_pseudo'] ?>"><?= htmlspecialchars($c['user_pseudo'])."," ?></a>
+                                        <span style="font-size:2rem"><?= Tools::convertTimestampToFrenchDate($c['comment_created_date']) ?></span> 
+                                    </p>
+                                    <p><?= htmlspecialchars($c['comment_content']) ?></p>
+                                </div>
+                            </div>
+
+                        <?php endforeach ;?>
+                    <?php endif; ?>
+                </div>
+
+                <?php if(isset($_SESSION['id'])) : ?>
+                    <form method="POST"  action="" id="commentForm">
+                        
+                        <legend> 
+                            <i class="fa-solid fa-comments"></i>
+                            <span>Laisser un commentaire</span>
+                        </legend>
+                        <p class="text-center"> 
+                            <span id="spanInfos">
+                                Vous pouvez laisser un commentaire sur ce post
+                            </span>
+                        </p>
+
+                        <label> Commentaire :</label>
+                        <input type="text" name="idPost" value="<?= intval($post['post_id']) ?>" hidden>
+                                                
+                        <textarea id="comment" data-infos="infosComment"  name="comment_content" placeholder="Ecrivez un commentaire..."  ><?= (isset($post['comment_content'])) ? htmlspecialchars($post['comment_content']) : ""  ?></textarea>
+                        <span class="infosComment spanInfos"></span>    
+
+                        <input class="btnComment" type="submit" name="commentPost" value="Commenter">
+                    </form>
+            
+                <?php else : ?>
+                    <p style="font-size:2.7rem"><a href="<?= URL ?><?= PAGE_CONNEXION ?>">Connectez-vous pour laisser un commentaire</a></p>
+                <?php endif; ?>
+            </div>
+          
+        </div>
+      
+        <div class="rightcolumn">
+            <div class="card">
+                <?php include("views/commons/_searchBar.phtml"); ?>
+            </div>
+            
+            <div class="card">
+                <?php include("views/commons/_categories.phtml"); ?>
+            </div>
+
+            <div class="card">
+                <?php include("views/commons/_recentPosts.phtml"); ?>
+            </div>
+        </div>
+        
+    </div>
+<?php
+$scripts = '
+<script src="'.URL.'public/js/comment.min.js"></script>
+<script src="'.URL.'public/js/searchPosts.min.js"></script>';
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>
+
+
+

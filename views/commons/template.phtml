@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+
+  <head>
+    <?php include('_head.phtml'); ?>
+  </head>
+
+  <body>
+    <?php include('views/commons/_modalMsg.phtml'); ?>
+    
+    <header><?php include('_header.phtml'); ?></header>
+
+    <nav><?php include('_navbar.phtml'); ?></nav>
+
+    <main><?= $content ?></main>
+
+    <footer><?php include('_footer.phtml'); ?></footer>
+
+    <script src="<?= URL ?>public/js/functions.min.js"></script>
+    <script src="<?= URL ?>public/js/main.min.js"></script>
+    <?= (isset($scripts)) ? $scripts : ""; ?>
+  </body>
+</html>
+
+
+

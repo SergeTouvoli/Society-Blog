@@ -1,0 +1,49 @@
+<?php
+ob_start();
+?>
+    <div class="row">
+        <?php if(empty($posts)) : ?>
+            <p class="indispo">Aucun article disponible </p>
+            <div class="btnGroup tablePost">
+                <a href="<?= URL ?>ajoutPost" class="add_art">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Article</span>
+                </a>
+            </div>
+        <?php else :?>
+            <table>
+                <h1 style="margin: 30px auto" ><?= $pageTitle ?></h1>
+                <tr class="thead">
+                    <th>Titre</th>
+                    <th>Date de d'ajout</th>
+                    <th>Contenue</th>
+                    <th>Categorie</th>
+                    <th id="actions">Actions</th>
+                </tr>
+                <?php foreach ($posts as $post) : ?>
+                    <tr>
+                        <td><?= htmlspecialchars($post['post_title']) ?></td>
+                        <td><?= Tools::convertTimestampToFrenchDate($post['post_created_date']) ?></td>
+                        <td><?= nl2br(substr($post['post_content'], 0,45 ))   . "..." ?></td>
+                        <td><?= htmlspecialchars($post['category_name']) ?></td>
+                        <td class="actions">
+                            <a href="<?= URL.PAGE_EDIT_POST ?>/<?= htmlspecialchars($post['post_slug']); ?>" class="button edit" title ="modifier ce post"><i class="fas fa-edit"></i></a>  
+                            <a href="<?= URL.DELETE_POST ?>/<?= htmlspecialchars($post['post_slug']); ?>" class="button eye" title ="voir ce post"><i class="fas fa-eye"></i></a> 
+                            <button onclick="confirmDeletePost(<?= intval($post['post_id']) ?>)" class="button" title ="supprimer ce post"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </table>
+            <div class="btnGroup tablePost" style="margin: 30px auto">
+                <a href="<?= URL.PAGE_AJOUT_POST ?>" class="btnAddPost"><i class="fa-solid fa-plus"></i><p>Article</p></a>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>
+
+
+
+

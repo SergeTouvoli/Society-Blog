@@ -1,0 +1,193 @@
+<?php
+ob_start();
+?>
+
+<style>
+
+.compte .left{
+    padding: 5px;
+}
+
+
+.btn-editInfos {
+  color: white;
+  padding: 11px 14px 11px 14px;
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: 13px;
+  font-size: 1.7rem;
+   background-color: #28A745 !important;
+  display: flex;  
+}
+
+.containerUpload {
+    position: relative;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    cursor:pointer;
+    border-radius:50%;
+}
+
+.avatarUser {
+  opacity: 1;
+  display: block;
+  border-radius: 50%;
+  width: 150px;
+  height:150px;
+  border-radius:50%;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.containerUpload .avatarUser {
+  opacity: 0.3;
+}
+
+.containerUpload .middle {
+  opacity: 1;
+}
+
+.iconCamera {
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    padding: 17px 22px;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(15, 20, 25, 0.75);
+    border-radius: 50%;
+    align-items: center;
+}
+
+
+form#editInfos#output_image{
+    margin-top: 35px;
+
+}
+
+
+</style>
+<body>  
+    <div class="compte">
+
+        <div class="left">
+    
+            <h2 class="text-white">Mon Compte</h2>
+            <img class="img_profil roundImg" src="public/images/avatars/<?= $user['user_avatar']?>" alt="">
+
+            <p style="font-size:3rem"><?= htmlspecialchars($user['user_firstname']) ?> <?= htmlspecialchars($user['user_lastname']) ?> </p>
+
+            <a href="<?= URL ?>monCompte#infosCompte"  class="button infos" title="Voir les informations de mon compte">Informations du compte</a>
+            <a href="<?= URL ?>editCompte#editInfos" class="button success" title="Modifier les informations de mon compte">Modifier mes informations</a>
+            <a href="<?= URL ?>deconnexion" class="button danger" title="Me déconnecter">Déconnexion</a>
+        </div>
+        
+        <div class="right">
+
+            <?php if($_GET['page'] == PAGE_EDIT_COMPTE) : ?>
+        
+                <div class="sectionContent">
+                    <form  id="editInfos" enctype="multipart/form-data" action="" method="POST">
+                        <h2><?= $pageTitle ?></h2>
+                        <p class="text-center" style="margin:0" >
+                            Une fois la modification effectué vous serez déconnecté
+                        </p>
+                        <span class="text-center" style="margin-bottom:15px">Cliquez <a href="<?= URL ?>editAvatar#editAvatar" style="text-decoration:underline">ici</a> pour changer d'avatar</span>
+                        <?php include('./views/commons/_errors.phtml'); ?>
+                        <?php include('./views/commons/_valids.phtml'); ?>
+                        
+                        <div class="inputDiv">
+                            <input class="input" type="password" name="user_password" placeholder="Mot de passe actuel" value="<?= $data['actualPassword'] ?>">
+                        </div>
+                        
+                        <div class="inputDiv inputPassword">
+                            <input type="password" name="newPassword" class="input" onfocus="verifFormatPassword()" id="newPassword" value="<?= $data['newPassword'] ?>" placeholder="Nouveau Mot de passe">
+                            <div id="messageBox">
+                                <p id="letter" class="invalid">Une <b>lettre minuscule</b> </p>
+                                <p id="capital" class="invalid">Une <b>lettre majuscule</b></p>
+                                <p id="number" class="invalid">Un <b>Chiffre</b></p>
+                                <p id="length" class="invalid">Minimum <b>5 caractères</b></p>
+                            </div>
+                        </div>
+                        
+                        <div class="inputDiv inputPassword">
+                            <input type="password"  name="newPasswordConfirm" class="input"  onfocus="verifFormatPasswordConfirm()" id="newPasswordConfirm" value="<?= $data['newPasswordConfirm'] ?>"  placeholder="Confirmez votre nouveau mot de passe">
+                            <p id="conform" class="invalid"> Mot de passe identique</p>
+                        </div>
+
+                        <div class="btnGroup">
+                            <button class="btn-editInfos" type="submit" title="Valider les modifications" >Valider</button>
+                        </div>
+                    </form>
+                </div>
+
+            <?php elseif($_GET['page'] == PAGE_MON_COMPTE) :  ?>
+
+                <div id="infosCompte">
+
+                    <h2>Mes Informations</h2>
+
+                    <div div class="infos text-center">
+                        <p>Email : <?= htmlspecialchars($_SESSION['email']) ?>  </p>
+                        <p>Inscrit depuis le <?= Tools::convertTimestampToFrenchDate($user['user_date_create']) ?></p>
+                        <p>Dernière connexion : <?= Tools::convertTimestampToFrenchDate($user['user_last_connexion']) ?></p>
+
+                        <a href="javascript:void(0);" title="supprimer mon compte" class="button danger" style="margin: 0 auto" onclick="confirmDeleteUser(<?= intval($_SESSION['id']) ?>)">Supprimer mon compte</a>
+
+                    </div>
+                </div>
+
+            <?php elseif($_GET['page'] == PAGE_EDIT_AVATAR) : ?>   
+
+                <div id="editAvatar" class="sectionContent">
+                    <form class="editInfos" id="editInfos" enctype="multipart/form-data" action="" method="POST">
+                        <h2><?= $pageTitle ?></h2>
+                        <?php include('./views/commons/_errors.phtml'); ?>
+                        <?php include('./views/commons/_valids.phtml'); ?>
+                    
+                            <div class="image-upload">
+                                <label for="file-input">
+                                   <div class="containerUpload">
+                                      <img src="public/images/avatars/<?= $user['user_avatar']?>" alt="Avatar" class="avatarUser">
+                                      <div class="middle">
+                                        <div class="iconCamera"><i class="fa-solid fa-camera"></i></div>
+                                      </div>
+                                    </div>
+                                </label>
+                                
+                              <input name="user_avatar"  id="file-input" type="file" hidden onchange="previewImage(event)"   />
+                            </div>
+
+                            <p class="text-center" style="margin-top:0">Votre nouvel avatar apparaîtra en dessous</p>
+                            <img id="output_image" class="avatarUser " />
+
+                        </div>
+                        <div class="btnGroup">
+                            <input name="changeAvatar" class="btn-editInfos" type="submit" title="Changer d'avatar" value = "Changer" >
+                        </div>
+                    </form>
+                </div>
+                
+            <?php endif; ?>
+        </div>
+    </div>
+
+<?php
+$scripts = '<script src="'.URL.'public/js/account.min.js"></script>';
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>
+
+
+

@@ -1,0 +1,51 @@
+<?php
+ob_start();
+?>
+
+    <div class="row">
+        <div class="leftcolumn">
+
+            <h2 style="font-size:4rem"><?= $title; ?></h2>
+            
+            <?php foreach ($result as $post): ?>
+                <div class="card-article ">
+                    <a href="<?= URL ?><?= PAGE_POST ?>/<?= intval($post['post_slug']); ?>" class="white" >
+                        <h2 id="title" class="title"><?= htmlspecialchars($post['post_title']) ?></h2>
+                    </a>
+                    <div class="card-img">
+                        <img src="<?= URL ?>public/images/imgPost/<?= $post['post_image'] ?>" class="img_art" alt="image">
+                    </div>
+                    <h2 class="info">
+                        <a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= $post['user_pseudo'] ?>" > <i class="fa-solid fa-user-pen" style="margin-right: 5px"></i><?= htmlspecialchars($post['user_pseudo']) ?> </a>| <?= Tools::convertTimestampToFrenchDate($post['post_created_date']) ?> <i class="fa-solid fa-calendar-days"></i>   
+                    </h2>
+                    <div class="content">
+                        <?= nl2br(substr($post['post_content'], 0,500 )). "..." ?><br>
+                        <p class="readmore"><a href="<?= URL ?><?= PAGE_POST ?>/<?= htmlspecialchars($post['post_slug']); ?>"><span>Lire la suite</span></a></p> 
+                    </div>
+                    
+                </div>
+            <?php endforeach; ?>
+            
+        </div>
+        
+        <div class="rightcolumn">
+            <div class="card">
+                <?php include("views/commons/_searchBar.phtml"); ?>
+            </div>
+            
+            <div class="card">
+                <?php include("views/commons/_categories.phtml"); ?>
+            </div>
+
+        </div>
+      
+    </div>
+    
+<?php
+$scripts = '<script src="'.URL.'public/js/searchPosts.min.js"></script>';
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>
+
+
+

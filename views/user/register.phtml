@@ -1,0 +1,66 @@
+<?php
+ob_start();
+?>
+    <h1><?= $pageTitle ?></h1>
+    
+    <form id="register" enctype="multipart/form-data" method="POST">
+
+        <p class="infoRegister">les champs marqués d'un asterisque sont obligatoires</p>
+
+        <?php include('./views/commons/_errors.phtml'); ?>
+        <?php include('./views/commons/_valids.phtml'); ?>
+
+        <div class="inputDiv">
+            <label>Pseudo *</label>
+           <input class="input" id="user_pseudo" data-infos="infosPseudo" minlength="3" maxlength="10" type="text" name="user_pseudo" placeholder="Entrez votre pseudo" value="<?= $register['pseudo'] ?>" required> 
+        </div>
+
+        <div class="inputDiv">
+            <label>Prénom *</label>
+           <input class="input" type="text" data-infos="infosPrenom"  name="user_firstname" maxlength="50" placeholder="Entrez votre prénom (50 caractères max)" value="<?= $register['firstname'] ?>" required> 
+
+        </div>
+
+        <div class="inputDiv">
+            <label>Nom *</label>
+            <input class="input" type="text" data-infos="infosNom"   name="user_lastname" maxlength="50" placeholder="Entrez votre nom (50 caractères max)" value="<?= $register['lastname'] ?>" required>
+        </div>
+        
+        <div class="inputDiv">
+            <label>Email *</label>
+            <input class="input" type="email" name="user_mail" placeholder="Entrez votre email" value="<?= $register['email'] ?>" required>
+        </div>
+
+        <div class="inputDiv inputPassword">
+            <label>Mot de passe *</label>
+            <input type="password" name="user_password" class="input" id="userPassword"  placeholder="Entrez votre mot de passe" value="<?= $register['password'] ?>" required>
+            <div id="messageBox">
+                <p id="letter" class="invalid">Une <b>lettre minuscule</b> </p>
+                <p id="capital" class="invalid">Une <b>lettre majuscule</b></p>
+                <p id="number" class="invalid">Un <b>Chiffre</b></p>
+                <p id="length" class="invalid">Minimum <b>5 caractères</b></p>
+            </div>
+        </div>
+                    
+        <div class="inputDiv avatar">
+            <label for="user_avatar">Avatar : </label>
+            <div class="upload-btn-wrapper">
+              <button class="btnUpload">Choisir une photo</button>
+              <input type="file" name="user_avatar" accept="image/*" onchange="previewImage(event)"  />
+            </div>
+        </div>
+        <img id="output_image"/>
+        
+        <p class="infosFormat text-center">Formats acceptés : ['jpg','jpeg','gif','png']</p>
+
+        <button type="submit" class="btnRegister">S'inscrire</button>
+    </form>
+<?php
+$scripts = '<script src="'.URL.'public/js/register.min.js"></script>';
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>
+
+
+
+

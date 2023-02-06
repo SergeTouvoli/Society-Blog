@@ -1,0 +1,29 @@
+
+        <div class="navbar" id="myTopnav">
+            <a class="link <?= Tools::verifActivePage(PAGE_ACCUEIL); ?>" href="<?= URL.PAGE_ACCUEIL ?>">Accueil</a>
+
+            <?php if(isset($_SESSION['id'])) : ?>
+                <a class="link <?= Tools::verifActivePage(PAGE_MON_COMPTE); ?>" href="<?= URL.PAGE_MON_COMPTE ?>">Mon compte</a>
+                <a class="link <?= Tools::verifActivePage(PAGE_MES_POSTS); ?>" href="<?= URL.PAGE_MES_POSTS ?>">Voir mes posts</a>
+
+                <?php if ($_SESSION['role'] == 1): ?>
+
+                <a class="link <?= Tools::verifActivePage(PAGE_GESTION_UTILISATEURS); ?>" href="<?= URL.PAGE_GESTION_UTILISATEURS ?>">Gestion des membres</a>
+                <a class="link <?= Tools::verifActivePage(PAGE_GESTION_POSTS); ?>" href="<?= URL.PAGE_GESTION_POSTS ?>">Gestion des posts</a>
+                
+                <?php endif;?>
+                <a class="link <?= Tools::verifActivePage(PAGE_CONTACT); ?>" href="<?= URL.PAGE_CONTACT ?>">Contact</a>
+
+                <a class="link" href="<?= URL ?>deconnexion">Déconnexion</a>
+                
+            <?php else:?>
+                <a class="link <?= Tools::verifActivePage(PAGE_INSCRIPTION); ?>" href="<?= URL.PAGE_INSCRIPTION ?>">Inscription</a>
+                <a class="link <?= Tools::verifActivePage(PAGE_CONNEXION); ?>" href="<?= URL.PAGE_CONNEXION ?>">Connexion</a>
+
+            <?php endif;?>
+
+
+
+            <a href="javascript:void(0);" class="burger" id="burgerMenu"><i class="fa fa-bars"></i></a>
+        </div>
+    

@@ -1,0 +1,145 @@
+<?php
+ob_start();
+?>
+<style>
+/*the container must be positioned relative:*/
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  margin-bottom:20px;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+  background-color: var(--principalColor);
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 0px 10px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: var(--principalColor);
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+
+label {
+  font-size: 2.3rem;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+.viewImg{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.viewImg img{
+  margin-bottom: 10px;
+}
+#post_title{
+  margin-bottom: 0 !important;
+}
+.inputDivTitle{
+  margin-bottom: 20px;
+}
+</style>
+  <div class="row">
+      <div class="fullcolumn">
+        <h2><?= $title ?></h2>
+        <div class="container_form">
+          <form id="addOrEditPost" action="" method="POST" enctype="multipart/form-data" >
+            <?php include('./views/commons/_errors.phtml'); ?>
+            <?php include('./views/commons/_valids.phtml'); ?>
+
+            <div class="inputDiv">
+              <label for="postTitle">Titre</label>
+              <input type="text" name="post_title" id="post_title" data-infos="infosPostTitle"  placeholder="Ajouter un nouveau titre" value="<?= htmlspecialchars($post['post_title']);  ?>"  required>
+              <span class="infosPostTitle spanInfos"></span>    
+            </div>
+
+            <div class="inputDiv">
+              <label for="postCategory">Catégorie</label><br>
+              <div class="custom-select">
+                <select name="post_category" class="form-control" id="post_category"  required>
+                  <?php foreach($categories as $cat): ?>
+                    <option value="<?= intval($cat['category_id']) ?>" <?php if( intval($cat['category_id']) === intval($post['post_category'])){echo "selected"; } ?>> <?= htmlspecialchars($cat['category_name']) ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="inputPostImag">
+              <label for="post_image">Image : </label>
+              <div class="upload-btn-wrapper">
+                <button class="btnUpload">Choisir </button>
+                <input type="file" name="post_image" accept="image/*" onchange="preview_image(event)" />
+              </div>
+            </div>
+
+            <div class="viewImg">
+              <img style="margin-bottom:15px;" id="output_image"/>
+              <img src="<?= URL ?>public/images/imgPost/<?= $post['post_image'] ?>" class="img_art" alt="image">
+            </div>
+
+            <textarea name="post_content" id="countC" data-infos="infosPostContent"  class="form-control" style="height:200px"  required><?= html_entity_decode($post['post_content']);  ?></textarea> 
+            <span class="infosPostContent spanInfos"></span>    
+              
+            <div class="btnGroup">
+              <input class="btnPost" type="submit" name="editPost" class="" value="Modifier">
+            </div>
+
+          </form>
+        </div>
+      </div>
+  </div>
+<?php
+$scripts = '<script src="'.URL.'public/js/post.min.js"></script>';
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>
+
+

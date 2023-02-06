@@ -1,0 +1,23 @@
+<?php
+ob_start();
+?>
+    <style>
+        p {
+            font-size: 3.8rem;
+            text-align: center;
+        }
+    </style>
+
+    <div style="height:400px;">
+        <h2 style="font-size:4rem">Erreur</h2>
+        <p><?= $errorMessage ?></p>
+    </div>
+    
+<?php
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>
+
+
+
+

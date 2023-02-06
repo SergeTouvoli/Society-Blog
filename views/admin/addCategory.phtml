@@ -1,0 +1,64 @@
+<?php
+ob_start();
+?>
+<style>
+    /* .add_art{
+        margin: 10px;
+        width: 190px;
+        display: flex;
+    }
+    .add_art span{
+        font-size:3.5rem;
+        margin-left:12px;
+    }
+    .add_art i{
+        font-size:27px;
+    } */
+    .btnGroup{
+        margin-top:10px;
+    }
+
+    form#addCategorie .btnPost {
+        border-radius: 10px;
+        background-color: var(--principalColor);
+        margin-top: 20px;
+        margin: 5px;
+        color: white;
+        font-size: 1.7rem;
+        font-weight: 700;
+        padding: 11px;
+        border: none;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 5px;
+    }
+
+    form#addCategorie .btnPost:hover {
+        background-color: #333;
+    }
+</style>
+
+    <div class="row">
+        <div class="fullcolumn">
+            <h2><?= $title ?></h2>
+            <div class="container_form">
+                <form id="addCategorie" action="" method="POST" class="form_post">
+                    <?php include('./views/commons/_errors.phtml'); ?>
+                    <?php include('./views/commons/_valids.phtml'); ?>
+                    
+                    <input class="input" type="text" name="category_name" id="category_name"  placeholder="Saisissez le nom de votre nouvelle catégorie" value="<?= isset($_POST['category_name']) ? $_POST['category_name'] : "" ?>"  required>
+                    <div class="btnGroup">
+                        <input type="submit" name="addPost" class="btnPost" value="Ajouter">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+<?php
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>
+
+

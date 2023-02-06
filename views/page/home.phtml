@@ -1,0 +1,77 @@
+<?php
+ob_start();
+?>
+  <div class="row">
+    <div class="leftcolumn">
+
+      <h1><?= $pageTitle ?></h1>
+      
+      <?php if(empty($posts)) : ?>
+        <p class="indispo">Aucun article disponible</p>
+      <?php else: ?>
+        
+        <?php foreach ($posts as $post): ?>
+          <div class="card-article ">
+            <a href="<?= URL ?><?= PAGE_POST ?>/<?= htmlspecialchars($post['post_slug']) ; ?>" class="white" >
+              <h2 class="title"><?= htmlspecialchars($post['post_title']) ?></h2>
+            </a>
+
+            <div class="card-img">
+              <img src="<?= URL ?>public/images/imgPost/<?= $post['post_image'] ?>" class="img_art" alt="image">
+            </div>
+            
+            <div class="infosArticle">
+              <a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= $post['user_pseudo'] ?>" class="infoAuthor" > 
+                <i class="fa-solid fa-user-pen" ></i>
+                <span><?= htmlspecialchars($post['user_pseudo']) ?></span>
+              </a>
+              <p class="infoDate">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span><?= Tools::convertTimestampToFrenchDate($post['post_created_date']) ?></span>
+              </p>
+            </div>
+            
+            <div class="content">
+              <?= nl2br(substr($post['post_content'], 0,500 )). "..." ?><br>
+            </div>
+            <hr>
+            <div class="card-footer">
+              <a href="<?= URL ?><?= PAGE_POST ?>/<?= $post['post_slug']."#listComments" ?>" class="nbComments"> <strong>Commentaires : </strong>&nbsp; <span class="tag"><?= $post['comment_count'] ?></span></a> 
+              <a href="<?= URL ?><?= PAGE_POST ?>/<?= $post['post_slug']; ?>" class="readmore"><span>Lire la suite</span></a> 
+            </div>
+            
+
+          </div>
+        <?php endforeach; ?>
+
+        <?php include('views/commons/_pagination.phtml') ?>
+
+      <?php endif; ?>
+
+    </div>
+    
+    <div class="rightcolumn">
+
+      <div class="card">
+        <?php include("views/commons/_searchBar.phtml"); ?>
+      </div>
+      
+      <div class="card">
+        <?php include("views/commons/_categories.phtml"); ?>
+      </div>
+            
+      <div class="card">
+        <?php include("views/commons/_recentPosts.phtml"); ?>
+      </div>
+          
+    </div>
+
+  </div>
+<?php
+$scripts = '<script src="'.URL.'public/js/searchPosts.min.js"></script>';
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>
+
+
+
