@@ -48,9 +48,9 @@ ob_start();
                         <?= Tools::concatPrenomNom($user['user_firstname'],$user['user_lastname']); ?>
                         a publié <?= $nbArticles; ?> article(s) :
 
-                        <!-- <?php foreach($postOfUser as $post) : ?>
-                            <span><a href="<?= URL ?><?= PAGE_POST ?>/<?= $article['post_slug']; ?>"><?= htmlspecialchars($post['post_title']) .", " ?></a></span>
-                        <?php endforeach; ?> -->
+                         <?php foreach($postOfUser as $post) : ?>
+                            <span><a href="<?= URL.PAGE_POST ?>/<?= $post['post_slug']; ?>"><?= htmlspecialchars($post['post_title']) .", " ?></a></span>
+                        <?php endforeach; ?> 
 
                     </div>
                 </div>

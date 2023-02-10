@@ -5,7 +5,7 @@ ob_start();
         <?php if(empty($posts)) : ?>
             <p class="indispo">Aucun article disponible </p>
             <div class="btnGroup tablePost">
-                <a href="<?= URL ?>ajoutPost" class="add_art">
+                <a href="<?= URL.PAGE_AJOUT_POST ?>" class="add_art">
                     <i class="fa-solid fa-plus"></i>
                     <span>Article</span>
                 </a>
@@ -28,7 +28,7 @@ ob_start();
                         <td><?= htmlspecialchars($post['category_name']) ?></td>
                         <td class="actions">
                             <a href="<?= URL.PAGE_EDIT_POST ?>/<?= htmlspecialchars($post['post_slug']); ?>" class="button edit" title ="modifier ce post"><i class="fas fa-edit"></i></a>  
-                            <a href="<?= URL.DELETE_POST ?>/<?= htmlspecialchars($post['post_slug']); ?>" class="button eye" title ="voir ce post"><i class="fas fa-eye"></i></a> 
+                            <a href="<?= URL.PAGE_POST ?>/<?= htmlspecialchars($post['post_slug']); ?>" class="button eye" title ="voir ce post"><i class="fas fa-eye"></i></a> 
                             <button onclick="confirmDeletePost(<?= intval($post['post_id']) ?>)" class="button" title ="supprimer ce post"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
