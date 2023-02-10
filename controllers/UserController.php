@@ -253,7 +253,7 @@ class UserController extends AbstractController  {
             //Gestion des erreurs
             if($login['email'] == ''){ $errors[] = "Veuillez remplir le champ 'Email' !"; }
             if(!filter_var($login['email'], FILTER_VALIDATE_EMAIL)){ $errors[] = "Veuillez renseigner une adresse email valide SVP !"; }
-            if($login['password'] == ''){ $errors[] = "Veuillez remplir le champ 'Mot de passe' !"; }            
+            if($login['password'] == ''){ $errors[] = "Veuillez remplir le champ 'Mot de passe' !"; }  
     
             if(!empty($user_password)) {
 
@@ -465,6 +465,7 @@ class UserController extends AbstractController  {
         $this->renderView($this->directory, "userAccount", [
             'pageTitle' => $pageTitle,
             'pageDescription' => $pageDescription,
+            'postOfUser' => $postOfUser,
             'nbArticles' => count($postOfUser),
             'user' => $user
         ]); 
