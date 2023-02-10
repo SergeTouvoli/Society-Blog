@@ -8,8 +8,6 @@ Add an avatar to your profile
 Comment on articles
 Publish your own articles
 
-Society is currently under development 
-
 ## Our platform is built using the following technologies:
 - HTML
 - CSS
