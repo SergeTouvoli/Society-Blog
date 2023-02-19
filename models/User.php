@@ -206,8 +206,6 @@ class User extends DatabaseTools {
 
     public function saveUser(array $register){
 
-        // j'ai cette erreur sql SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VALUES ('test','Serge', 'Touvoli', 'sergetouvoli34@gmail.com','63dfd97f40585-img' at line 2
-
        
         $sql = "INSERT INTO users (user_pseudo,user_firstname,user_lastname,user_mail, user_avatar, user_password,user_date_create) 
                 VALUES (:user_pseudo,:user_firstname, :user_lastname, :user_mail,:user_avatar, :user_password,:user_date_create)";
