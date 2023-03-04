@@ -340,12 +340,21 @@ class User extends DatabaseTools {
     }
     
     /**
-    * Vérifie si un utilisateur est un administrateur.
-    *
-    * @return bool Vrai si l'utilisateur est connecté et a le rôle d'administrateur, faux sinon.
+    * Vérifie l'utilisateur connecté est un administrateur.
+    * @return bool
     */
     public function isAdmin() {
         return $this->isConnected() && $_SESSION['role'] == 1;
+    }
+
+    /**
+     * Récupère l'ID de l'utilisateur connecté.
+     * @return int L'ID de l'utilisateur connecté.
+    */
+    public function getId(){
+        if($this->isConnected()){
+            return $_SESSION['id'];
+        }
     }
       
 
