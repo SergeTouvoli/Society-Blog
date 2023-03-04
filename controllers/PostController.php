@@ -10,14 +10,16 @@ class PostController extends AbstractController  {
     private $post;
     private $categorie;
     private $tools;
+    private $directory;
 
     public function __construct(){
         $this->user = new User;
         $this->post = new Post;
         $this->categorie = new Category;
         $this->tools = new Tools;
-    }
+        $this->directory = "post";
 
+    }
 
     /**
      * Supprime un post.
@@ -54,13 +56,12 @@ class PostController extends AbstractController  {
 
 
     /**
-     * liveSearchPost
      * 
      * Effectue une recherche de posts en fonction de la chaîne de caractères spécifiée en entrée.
      * Affiche les résultats de la recherche sous forme de liens vers les pages de chaque post.
      * 
     */
-    public function liveSearchPost(){
+    public function liveSearchPost(): void{
         if(isset($_POST['string'])){
             $recherche = Tools::sanitize(strtolower($_POST['string']));
             
@@ -98,9 +99,7 @@ class PostController extends AbstractController  {
 
 
     /**
-     * 
-     * getAddPostPage
-     * 
+     *     
      * Fonction qui affiche la page d'ajout de post
      * La fonction vérifie d'abord si l'utilisateur est connecté. Si ce n'est pas le cas,
      * l'utilisateur est redirigé vers la page de connexion. Ensuite, elle récupère les
@@ -111,13 +110,12 @@ class PostController extends AbstractController  {
      * l'utilisateur vers la page du post ajouté.
      * 
     */
-    public function getAddPostPage(){
+    public function getAddPostPage(): void{
         
         // Initialisation des variables
         $pageTitle = "Ajoutez un article";
         $pageDescription = "";
         $errors = []; 
-        $valids = [];
         $addPost = [
             'title' => '',
             'slug' => '',
@@ -180,74 +178,49 @@ class PostController extends AbstractController  {
             
         }
     
-        require_once "views/post/addPost.phtml";
+        $this->renderView($this->directory, "addPost", [
+            'pageTitle' => $pageTitle,
+            'pageDescription' => $pageDescription,
+            'errors' => $errors,
+            'categories' => $categories,
+            'addPost' => $addPost        
+        ]); 
     }
 
 
-    
-    #TODO refactoriser cette fonction , retirer le traitement de l'ajout d'un comment  
-    ## une deuxième fonction(addComment) est à faire 
-    public function getPostPage($slug){
+    /**
+     * Récupère la page d'un article à partir de son slug.
+     * 
+     * @param string $slug Le slug de l'article
+     * @throws Exception Si l'article n'existe pas
+     * @return void
+     */
+    public function getPostPage(string $slug): void{
         
         $slug = htmlspecialchars($slug);
-        //Recup des infos sur le post 
+
+        //Récupération des informations sur l'article
         $post = $this->post->getPostBySlug($slug); 
-        
         if(empty($post)) { 
             throw new Exception("L'article que vous souhaitez consulter n'existe pas");
         }
 
-        $idPost = $post['post_id'];   
         $pageTitle = htmlspecialchars($post['post_title']);
         $pageDescription ="Vous lisez l'article ". htmlspecialchars($post['post_title']);
 
-        //Recup des autres infos 
-        $recentsPosts = $this->post->getRecentsPosts();
-        $comments = $this->post->getAllComments($idPost);
-        $lastUser = $this->user->getLastUser();   
-        $nbUsers = $this->user->getnbUsers();
-        $categories = $this->categorie->getAllCategories();
+        $this->renderView($this->directory, "post", [
+            'pageTitle' => $pageTitle,
+            'pageDescription' => $pageDescription,
+            'post' => $post,
+            'categories' => $this->categorie->getAllCategories(),
+            'recentsPosts' => $this->post->getRecentsPosts(),
+            'lastUser' => $this->user->getLastUser(),
+            'nbUsers' => $this->user->getnbUsers()
 
-        if(isset($_POST['comment_content']) && !empty($_POST['comment_content'])){
-            $errors = [];
-
-            $comment_author = intval($_SESSION['id']) ;
-            $comment_content = Tools::sanitize(($_POST['comment_content']));
-            $comment_date = time();
-            
-            if($comment_content == ''){ 
-                $errors[] = "Veuillez saisir votre commentaire "; echo "<script>alert('Veuillez saisir votre commentaire !');</script>";  
-            }
-
-            if(!empty($comment_content)){
-                $numberMinimalOfCaracters = 3;
-                $numberMaximalOfCaracters = 150;
-                if(strlen($comment_content) < $numberMinimalOfCaracters ) { 
-                    $errors[] = "Minimum $numberMinimalOfCaracters caractères"; echo "<script>alert('Minimum $numberMinimalOfCaracters caractères');</script>"; 
-                }
-                if(strlen($comment_content) > $numberMaximalOfCaracters ) { 
-                    $errors[] = "Maximum $numberMaximalOfCaracters caractères" ; echo "<script>alert('Maximum $numberMaximalOfCaracters caractères');</script>";
-                }
-            }
-            
-            if(count($errors) == 0) {
-                if($this->post->commentPost($comment_date,$comment_author,$idPost,$comment_content)){
-                    $_SESSION['message'] = "Commentaire ajouté avec succès !";
-                    $this->redirectTo(PAGE_POST."/".$slug);
-                    return;
-                }else{
-                    echo "<script>alert('Une erreur est survenue !');</script>";
-                }
-            }
-        }
-        require_once "views/post/post.phtml"; 
+        ]); 
     }
-
  
     /**
-     * 
-     * getEditPostPage
-     * 
      * Affiche la page de modification d'un post
      *
      * Cette fonction vérifie si l'utilisateur est connecté et si le slug du post est valide. Si ce n'est pas le cas, l'utilisateur est redirigé vers la page d'accueil.
@@ -258,7 +231,7 @@ class PostController extends AbstractController  {
      *
      * @throws Exception Si l'article à modifier n'existe pas
     */
-    public function getEditPostPage($slug){
+    public function getEditPostPage(string $slug): void{
 
         $slug = htmlspecialchars($slug);
 
@@ -281,8 +254,8 @@ class PostController extends AbstractController  {
         //Traitement edit post page
         if(empty($post)) { throw new Exception("L'article que vous souhaitez modifier n'existe pas"); }
 
-        $title = "Modifier l'article ".htmlspecialchars($post['post_title']);
-        $description = "";
+        $pageTitle = "Modifier l'article ".htmlspecialchars($post['post_title']);
+        $pageDescription = "";
         $errors = []; 
         $data = [
             'id' => '',
@@ -349,13 +322,18 @@ class PostController extends AbstractController  {
         
         }
 
-        require_once "views/post/editPost.phtml";
+        $this->renderView($this->directory, "editPost", [
+            "pageTitle" => $pageTitle,
+            "pageDescription" => $pageDescription,
+            "post" => $post,
+            "categories" => $categories,
+            "errors" => $errors,
+            "data" => $data
+        ]); 
     }
 
 
-    /**
-     * getSearchPage
-     * 
+    /**     
      * Affiche la page de résultats de la recherche.
      *
      * La recherche est effectuée à partir de la variable POST 'string'. Si cette variable
@@ -368,14 +346,14 @@ class PostController extends AbstractController  {
 
             $result = $this->post->searchPost($recherche);
 
-            $title = count($result)." résultat(s) pour votre recherche";
-
-            //Recup des infos principales
-            $lastUser = $this->user->getLastUser();   
-            $nbUsers = $this->user->getnbUsers();
-            $categories = $this->categorie->getAllCategories();
-
-            require_once "views/post/search.phtml";
+            $this->renderView($this->directory, "search", [
+                "pageTitle" => count($result)." résultat(s) pour votre recherche",
+                "pageDescription" => "",
+                "result" => $result,
+                "lastUser" => $this->user->getLastUser(),
+                "nbUsers" => $this->user->getnbUsers(),
+                "categories" => $this->categorie->getAllCategories()   
+            ]); 
             
         }else{
             $this->redirectTo(PAGE_ACCUEIL);
