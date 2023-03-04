@@ -32,6 +32,7 @@ class Post extends DatabaseTools {
         return $this->dbTools->dbSelectAll($sql,$params);
     }
 
+
     public function getPosts($premier,$parPage){
 
         $sql = "SELECT 
@@ -97,7 +98,7 @@ class Post extends DatabaseTools {
     }
 
 
-
+    
     public function searchPost($recherche){
         $sql = "SELECT
             p.post_title,
@@ -180,7 +181,7 @@ class Post extends DatabaseTools {
 
     public function getAllComments(int $idPost): array{
 
-        $sql = "SELECT c.comment_content, c.comment_created_date,u.user_pseudo,u.user_avatar
+        $sql = "SELECT c.comment_id, c.comment_content, c.comment_created_date,u.user_pseudo,u.user_avatar
         FROM comments AS c
         LEFT JOIN users AS u
             ON u.user_id = c.comment_author
@@ -225,6 +226,15 @@ class Post extends DatabaseTools {
 
         return $post;
     }  
+
+    public function getSlugById(int $idPost){
+        $sql = "SELECT post_slug FROM posts WHERE post_id = :idPost";
+        $params = array("idPost" =>  $idPost);
+        $slug = $this->dbTools->dbSelectOne($sql,$params);
+
+        return $slug['post_slug'];
+    }
+
     
     public function getPostOfUser(int $idUser): array{
 
