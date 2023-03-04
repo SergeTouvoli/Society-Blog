@@ -4,6 +4,7 @@ require_once "config/config.php";
 require_once "controllers/AbstractController.php";
 require_once "controllers/UserController.php";
 require_once "controllers/PostController.php";
+require_once "controllers/CommentController.php";
 require_once "controllers/AdminController.php";
 require_once "controllers/PageController.php";
 
@@ -13,12 +14,14 @@ class Router {
     private $postController;
     private $adminController;
     private $pageController;
+    private $commentController;
 
     public function __construct()
     {
         $this->userController = new UserController();
         $this->postController = new PostController();
         $this->adminController = new AdminController();
+        $this->commentController = new CommentController();
         $this->pageController = new PageController();
     }
 
@@ -127,6 +130,16 @@ class Router {
                             $this->pageController->getHomePage(1);
                         }
                         break;
+                    case ADD_COMMENT :
+                        $this->commentController->addComment();
+                        break;
+                    case LOAD_COMMENT :
+                        $this->commentController->getAllComments();
+                        break;
+                    case DELETE_COMMENT :
+                        if(isset($url[1]) && isset($url[2])){ 
+                            $this->commentController->deleteComment($url[1],$url[2]);
+                        }
                         break;
                     case ERROR_301: 
                     case ERROR_302: 

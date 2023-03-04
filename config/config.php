@@ -44,9 +44,11 @@ const PAGE_MES_POSTS = "mesPosts";
 const PAGE_AJOUT_POST = "ajoutPost";
 const PAGE_AJOUT_CATEGORIE = "ajoutCategorie";
 const PAGE_EDIT_POST = "editPost";
+const ADD_COMMENT = "ajouter-commentaire";
+const LOAD_COMMENT = "charger-commentaire";
 const DELETE_POST = "suppression-post";
 const DELETE_USER = "suppression-user";
-const ADD_COMMENT = "ajoutCommentaire";
+const DELETE_COMMENT = "suppression-commentaire";
 const CHANGE_ROLE = "change-role";
 
 // Définition des erreurs
