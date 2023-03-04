@@ -7,6 +7,26 @@ function openMenu() {
     }
 }
 
+function loadComment(){
+    const currentOrigin = window.location.origin;
+    const outputDiv = document.querySelector('#listComments');
+    const url = currentOrigin + '/Social/charger-commentaire';
+    const idPost = document.querySelector('.card-article').dataset.id;
+      
+    fetch(url,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: 'idPost=' + idPost
+    })
+    .then(response => response.text())
+    .then(data => {
+      outputDiv.innerHTML = data;
+    });
+  
+}
+  
 function previewImage(event) {
     const reader = new FileReader();
     reader.onload = function() {

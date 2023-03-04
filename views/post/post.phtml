@@ -4,7 +4,7 @@ ob_start();
 
     <div class="row">
         <div class="leftcolumn">
-            <div class="card-article ">
+            <div class="card-article" data-id ="<?= $post['post_id'] ?>">
                 <h2 class="title"><?= $pageTitle ?></h2>
                 <div class="card-img">
                     <img src="<?= URL ?>public/images/imgPost/<?= $post['post_image'] ?>" class="img_art" alt="image">
@@ -27,53 +27,31 @@ ob_start();
                     <p class="fin">FIN.</p>
                 </div>
 
-                <div class="" id="listComments">  
-                    <?php if (empty($comments)) :?>
-                        <p class="indispo">Aucun commentaires</p>
-                    <?php else : ?>
-                        <h3 class="title">Commentaires</h3>
-                        <?php foreach ($comments as $c) : ?>
-                            
-                            <div class="commentSection">
-                                <a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= htmlspecialchars($c['user_pseudo']) ?>"><img src="<?= URL ?>public/images/avatars/<?= $c['user_avatar']?>" alt="" ></a>
-                                <div class="commentContent">
-                                    <p class="commentAuthor">
-                                        <a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= $c['user_pseudo'] ?>"><?= htmlspecialchars($c['user_pseudo'])."," ?></a>
-                                        <span style="font-size:2rem"><?= Tools::convertTimestampToFrenchDate($c['comment_created_date']) ?></span> 
-                                    </p>
-                                    <p><?= htmlspecialchars($c['comment_content']) ?></p>
-                                </div>
-                            </div>
+                <div class="" id="listComments"></div>
 
-                        <?php endforeach ;?>
-                    <?php endif; ?>
-                </div>
+                <form method="POST"  action="" id="commentForm" onsubmit ="submitComment(event)">
 
-                <?php if(isset($_SESSION['id'])) : ?>
-                    <form method="POST"  action="" id="commentForm">
-                        
-                        <legend> 
-                            <i class="fa-solid fa-comments"></i>
-                            <span>Laisser un commentaire</span>
-                        </legend>
-                        <p class="text-center"> 
-                            <span id="spanInfos">
-                                Vous pouvez laisser un commentaire sur ce post
-                            </span>
-                        </p>
+                    <legend> 
+                        <i class="fa-solid fa-comments"></i>
+                        <span>Laisser un commentaire</span>
+                    </legend>
+                    <p class="text-center"> 
+                        <span id="spanInfos">
+                            Seul les membres connectés peuvent laisser un commentaire
+                        </span>
+                    </p>
+                    <div class="errorComment"></div>
+                    <div class="successComment"></div>
+                    <label> Commentaire :</label>
+                    <input type="text" name="idPost" value="<?= intval($post['post_id']) ?>" hidden>
+                                            
+                    <textarea id="comment_content" data-infos="infosComment"  name="comment_content" placeholder="Ecrivez un commentaire..."  ><?= (isset($post['comment_content'])) ? htmlspecialchars($post['comment_content']) : ""  ?></textarea>
+                    <span class="infosComment spanInfos"></span>    
 
-                        <label> Commentaire :</label>
-                        <input type="text" name="idPost" value="<?= intval($post['post_id']) ?>" hidden>
-                                                
-                        <textarea id="comment" data-infos="infosComment"  name="comment_content" placeholder="Ecrivez un commentaire..."  ><?= (isset($post['comment_content'])) ? htmlspecialchars($post['comment_content']) : ""  ?></textarea>
-                        <span class="infosComment spanInfos"></span>    
+                    <input class="btnComment" type="submit" name="commentPost" value="Commenter">
+                </form>
+                <p class="infosComment"></p>
 
-                        <input class="btnComment" type="submit" name="commentPost" value="Commenter">
-                    </form>
-            
-                <?php else : ?>
-                    <p style="font-size:2.7rem"><a href="<?= URL ?><?= PAGE_CONNEXION ?>">Connectez-vous pour laisser un commentaire</a></p>
-                <?php endif; ?>
             </div>
           
         </div>

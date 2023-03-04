@@ -844,6 +844,24 @@ hr {
   width: 100%;
 }
 
+.commentSection .deleteComment {
+  display: flex;
+  align-items: center;
+  color: red;
+
+}
+.commentSection .deleteComment i {
+  transition: .5s;
+}
+
+.commentSection .deleteComment i:hover {
+  font-size: 2.6rem;
+}
+
+.commentSection .deleteComment i {
+  font-size: 2rem;
+}
+
 .commentSection .commentAuthor a  {
   font-size: 2.2rem;
   /* margin-right: 15px; */
@@ -865,6 +883,10 @@ hr {
 .commentSection .commentAuthor .time-right {
   float: right;
   font-size:1.7rem
+}
+
+.commentContent {
+  width: 100%;
 }
 
 .commentContent p:last-child {
@@ -1129,3 +1151,16 @@ tr:nth-child(even) {
 .img-table {
   width: 70px;
 }
+
+.errorComment,.successComment{
+  text-align: center;
+  font-weight: 900;
+}
+.successComment{
+  color: green;
+}
+
+.errorComment {
+  color: red;
+}
+
