@@ -45,7 +45,7 @@ class Comment extends DatabaseTools {
      * @return bool : true si l'utilisateur est l'auteur, false sinon
      */
     public function isAuthor(int $commentId, int $userId) {
-        $sql = "SELECT COUNT(*) FROM comments WHERE comment_id = :commentId AND user_id = :userId";
+        $sql = "SELECT COUNT(*) FROM comments WHERE comment_id = :commentId AND comment_author = :userId";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":commentId", $commentId, PDO::PARAM_INT);
         $stmt->bindValue(":userId", $userId, PDO::PARAM_INT);
