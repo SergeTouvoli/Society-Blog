@@ -5,7 +5,7 @@ ob_start();
     <div class="row">
         <div class="leftcolumn">
 
-            <h2 style="font-size:4rem"><?= $title; ?></h2>
+            <h1><?= $pageTitle; ?></h2>
             
             <?php foreach ($result as $post): ?>
                 <div class="card-article ">
@@ -16,7 +16,7 @@ ob_start();
                         <img src="<?= URL ?>public/images/imgPost/<?= $post['post_image'] ?>" class="img_art" alt="image">
                     </div>
                     <h2 class="info">
-                        <a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= $post['user_pseudo'] ?>" > <i class="fa-solid fa-user-pen" style="margin-right: 5px"></i><?= htmlspecialchars($post['user_pseudo']) ?> </a>| <?= Tools::convertTimestampToFrenchDate($post['post_created_date']) ?> <i class="fa-solid fa-calendar-days"></i>   
+                        <a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= $post['user_pseudo'] ?>" > <i class="fa-solid fa-user-pen"></i><?= htmlspecialchars($post['user_pseudo']) ?> </a>| <?= Tools::convertTimestampToFrenchDate($post['post_created_date']) ?> <i class="fa-solid fa-calendar-days"></i>   
                     </h2>
                     <div class="content">
                         <?= nl2br(substr($post['post_content'], 0,500 )). "..." ?><br>

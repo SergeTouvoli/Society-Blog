@@ -1,18 +1,18 @@
 <?php
 ob_start();
 ?>
-    <div class="row">
+    <div id="myPosts" class="">
         <?php if(empty($posts)) : ?>
             <p class="indispo">Aucun article disponible </p>
             <div class="btnGroup tablePost">
-                <a href="<?= URL.PAGE_AJOUT_POST ?>" class="add_art">
+                <a href="<?= URL.PAGE_AJOUT_POST ?>" class="btnAddPost">
                     <i class="fa-solid fa-plus"></i>
                     <span>Article</span>
                 </a>
             </div>
         <?php else :?>
             <table>
-                <h1 style="margin: 30px auto" ><?= $pageTitle ?></h1>
+                <h1><?= $pageTitle ?></h1>
                 <tr class="thead">
                     <th>Titre</th>
                     <th>Date de d'ajout</th>
@@ -34,7 +34,7 @@ ob_start();
                     </tr>
                 <?php endforeach ?>
             </table>
-            <div class="btnGroup tablePost" style="margin: 30px auto">
+            <div class="btnGroup">
                 <a href="<?= URL.PAGE_AJOUT_POST ?>" class="btnAddPost"><i class="fa-solid fa-plus"></i><p>Article</p></a>
             </div>
         <?php endif; ?>

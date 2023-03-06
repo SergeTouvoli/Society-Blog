@@ -1,9 +1,9 @@
 <?php
 ob_start();
 ?>      
-    <div class="row">  
+    <div id="managePosts">  
         <table>
-            <h1 style="margin: 30px auto"><?= $pageTitle ?></h1>
+            <h1><?= $pageTitle ?></h1>
             <?php if(empty($posts)) : ?>
                 <p class="indispo">Aucun article disponible</p>
             <?php endif; ?>
@@ -30,7 +30,7 @@ ob_start();
                 </tr>
             <?php endforeach ?>
         </table>
-        <div class="btnGroup tablePost" style="margin: 30px auto">
+        <div class="btnGroup">
             <a href="<?= URL ?>ajoutPost" class="btnAddPost"><i class="fa-solid fa-plus"></i> <p>Article</p></a>
             <a href="<?= URL ?>ajoutCategorie" class="btnAddPost"><i class="fa-solid fa-plus"></i><p>Categorie</p></a>
         </div>

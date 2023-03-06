@@ -1,17 +1,11 @@
 <?php if(isset($_SESSION['message']) && !empty($_SESSION['message'])) : ?>
 
-
-
   <div id="myModal" class="modal">
-
-    <!-- Modal content -->
     <div class="modal-content">
       <span class="close">&times;</span>
       <p class="modal-content-msg"><?= $_SESSION['message'] ?></p>
     </div>
-
   </div>
-
 
   <script>
     const modal = document.querySelector("#myModal");
@@ -26,7 +20,7 @@
         modal.style.display = "none";
       }
     });
-</script>
+  </script>
 <?php endif; ?>
 <?php unset($_SESSION['message']); ?>
 
