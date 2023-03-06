@@ -32,6 +32,7 @@ function previewImage(event) {
     reader.onload = function() {
         document.querySelector('#output_image').src = reader.result;
         document.querySelector('#output_image').style.height = '150px';
+        document.querySelector('#output_image').style.display = 'block';
     };
     reader.readAsDataURL(event.target.files[0]);
 }
