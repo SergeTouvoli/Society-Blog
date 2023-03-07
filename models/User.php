@@ -168,21 +168,6 @@ class User extends DatabaseTools {
 
     }
 
-
-    function insertMsg(array $data) {
-        $sql = "INSERT INTO contacts (contact_email_author, contact_subject, contact_content, contact_date) 
-                            VALUES (:contact_author, :contact_subject, :contact_content, :contact_date)";
-                    
-        $sth = $this->db->prepare($sql); 
-                    
-        $sth->bindValue(':contact_author', $data['author'], PDO::PARAM_STR);
-        $sth->bindValue(':contact_subject', $data['subject'], PDO::PARAM_STR);
-        $sth->bindValue(':contact_content', $data['content'], PDO::PARAM_STR);
-        $sth->bindValue(':contact_date', $data['date'], PDO::PARAM_INT);
-        
-        return $sth->execute();
-    }
-
     /**
      * setRememberMeToken()
      * 

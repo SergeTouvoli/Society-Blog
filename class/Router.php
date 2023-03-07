@@ -56,6 +56,23 @@ class Router {
                     case PAGE_GESTION_CATEGORIES:
                         $this->adminController->getAdminGestionCategoriesPage();
                         break;
+                    case PAGE_GESTION_MESSAGES:
+                        $this->adminController->getAdminGestionMessae();
+                        break;
+                    case PAGE_VIEW_MESSAGE:
+                        if (!isset($url[1])) {
+                            $this->pageController->getHomePage(1);
+                        } else {
+                            $this->adminController->viewMessage($url[1]);
+                        }
+                        break;
+                    case DELETE_MESSAGE:
+                        if (!isset($url[1])) {
+                            $this->pageController->getHomePage(1);
+                        } else {
+                            $this->adminController->deleteMessage($url[1]);
+                        }
+                        break;
                     case PAGE_POST:
                         if (isset($url[1])) {
                             $this->postController->getPostPage($url[1]);

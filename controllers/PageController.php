@@ -1,18 +1,21 @@
 <?php
 require_once "models/Post.php";
 require_once "models/User.php";
+require_once "models/Contact.php";
 require_once "models/Category.php";
 
 class PageController extends AbstractController {
     
     private $users;
     private $posts;
+    private $contact;
     private $categories;
     private $directory;
 
     public function __construct(){
         $this->users = new User;
         $this->posts = new Post;
+        $this->contact = new Contact;
         $this->categories = new Category;
         $this->directory = "page";
     }
@@ -70,6 +73,13 @@ class PageController extends AbstractController {
     public function getContactPage(): void{
         $pageTitle = "Contactez-nous";
         $pageDescription = "Page de contact";
+
+
+        if(!$this->users->isConnected()) {
+            $this->redirectTo(PAGE_ACCUEIL,"Vous devez être connecté pour accéder à cette page.","error");
+            return;
+        }
+
         $errors = [];  
         
         $data = [
@@ -83,14 +93,13 @@ class PageController extends AbstractController {
         if(isset($_POST['contact_content']) && isset($_POST['contact_subject'])) {
 
             $data = [
-                "author" => $this->users->getEmailById($_SESSION['id']),
+                "author" => $this->users->getId(),
                 "subject" => Tools::sanitize($_POST['contact_subject']),
                 "content" => Tools::sanitize($_POST['contact_content']),
                 "date" => time()
             ];
 
 
-            if($data['author'] == ''){ $errors[] = "Veuillez saisir votre adresse email !"; }
             if($data['subject'] == ''){ $errors[] = "Veuillez saisir le sujet de votre message !"; }
             if($data['content'] == ''){ $errors[] = "Veuillez saisir le contenue de votre message !"; }
 
@@ -109,13 +118,9 @@ class PageController extends AbstractController {
             }
 
             // S'il n'y a pas d'erreurs
-            if(count($errors) == 0) {
-
-                $insertMsg = $this->users->insertMsg($data);  
-                
-                if($insertMsg) {
-                    $_SESSION['message'] = "Nous avons bien reçu votre message. Nous vous répondrons dans les plus brefs délais.";
-                    $this->redirectTo(PAGE_ACCUEIL);
+            if(count($errors) == 0) {                
+                if($this->contact->addMessage($data)) {
+                    $this->redirectTo(PAGE_ACCUEIL,"Nous avons bien reçu votre message. Nous vous répondrons dans les plus brefs délais.");
                 }
             }
 

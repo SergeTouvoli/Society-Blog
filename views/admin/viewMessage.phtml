@@ -1,0 +1,27 @@
+<?php
+ob_start();
+?>
+    <h2><?= $pageTitle ?></h2>
+    <div class="viewMessage">
+        <form id="contact" class="viewMessage">
+
+            <div class="inputDiv">
+                <label>Sujet </label>
+                <input class="input" type="text" placeholder="Saisissez le sujet de votre message" value="<?= $message['subject'] ?>" disabled>   
+            </div>
+
+            <div class="inputDiv">
+                <label>Contenue</label>
+                <textarea class="form-control" placeholder="Saisissez le contenue de votre message" style="height:200px" disabled><?= $message['content'] ?></textarea>
+            </div>
+        </form>
+        <div class="btnGroup">
+            <button class="backBtn"><a href="javascript:history.back()">Retour</a></button>
+            <button class="delete" title="supprimer ce message"><a href="<?= URL.DELETE_MESSAGE ?>/<?= $message['id'] ?>">Supprimer</a></button>
+        </div>
+    </div>
+<?php
+$content = ob_get_clean();
+require "views/commons/template.phtml";
+?>
+

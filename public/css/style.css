@@ -86,6 +86,33 @@ form#contact {
   margin-bottom: 70px;
 }
 
+.viewMessage form#contact {
+  margin-bottom: 0;
+}
+
+.viewMessage .btnGroup button {
+  border: none;
+  margin: 15px;
+  cursor: pointer;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 20px;
+  background-color: var(--principalColor);
+}
+
+.viewMessage .btnGroup button.backBtn a, .viewMessage .btnGroup button.delete a {
+  color: white;
+}
+
+.viewMessage .btnGroup button.delete {
+  background-color: #e74c3c;
+}
+
+.viewMessage input:disabled,.viewMessage textarea:disabled {
+  background-color: lightgray;
+  cursor: not-allowed;
+}
+
 form#contact textarea {
   width: 100%;
   padding: 12px;

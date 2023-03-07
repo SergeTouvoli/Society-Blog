@@ -2,12 +2,14 @@
 require_once "models/Post.php";
 require_once "models/User.php";
 require_once "models/Category.php";
+require_once "models/Contact.php";
 require_once "class/Tools.php";
 
 class AdminController extends AbstractController  {
 
     private $users;
     private $posts;
+    private $contact;
     private $categories;
     private $tools;
     private $directory;
@@ -15,6 +17,7 @@ class AdminController extends AbstractController  {
 
     public function __construct(){
         $this->users = new User;
+        $this->contact = new Contact;
         $this->posts = new Post;
         $this->categories = new Category;
         $this->tools = new Tools;
@@ -79,6 +82,79 @@ class AdminController extends AbstractController  {
             "pageDescription" => $pageDescription,
             "posts" => $this->posts->getAllPost(),
         ]); 
+    }
+
+    /**
+     * Affiche la page de gestion des messages pour les administrateurs.
+     * Redirige l'utilisateur non administrateur vers la page d'accueil.
+     * @return void
+     */
+    public function getAdminGestionMessae(): void {
+            
+        if (!$this->users->isAdmin()) {
+            $this->redirectTo(PAGE_ACCUEIL);
+            return;
+        }
+
+        $pageTitle = "Gestion des messages";
+        $pageDescription = "";   
+
+
+        $this->renderView($this->directory, "manageMessages", [
+            "pageTitle" => $pageTitle,
+            "pageDescription" => $pageDescription,
+            "messages" => $this->contact->getAllMessages(),
+        ]); 
+    }
+
+    /**
+     * Supprime un message spécifié par son identifiant.
+     * Redirige l'utilisateur non administrateur vers la page d'accueil.
+     * @param int $idContact L'identifiant du message à supprimer.
+     * @return void
+     */
+    public function deleteMessage(int $idContact){
+        if (!$this->users->isAdmin()) {
+            $this->redirectTo(PAGE_ACCUEIL);
+            return;
+        }
+
+        $success = $this->contact->deleteMessage($idContact);
+        if($success){
+            $this->redirectTo(PAGE_GESTION_MESSAGES,"Message supprimé !");
+            return;
+        }
+    }
+
+    /**
+     * Affiche un message spécifié par son identifiant.
+     * Redirige l'utilisateur non administrateur vers la page d'accueil.
+     * @param int $idContact L'identifiant du message à afficher.
+     * @return void
+     */
+    public function viewMessage(int $idContact){
+        if (!$this->users->isAdmin()) {
+            $this->redirectTo(PAGE_ACCUEIL);
+            return;
+        }
+
+        $message = $this->contact->getMessage($idContact);
+        $pageDescription = "";   
+        $message = [
+            "id" => intval($message['contact_id']),
+            "author" => $message['author'],
+            "subject" => $message['contact_subject'],
+            "content" => $message['contact_content'],
+            "date" => Tools::convertTimestampToFrenchDate($message['contact_date']),
+        ];
+        $pageTitle = "Recu le ".$message['date']." de ".$message['author']."";
+   
+        $this->renderView($this->directory, "viewMessage", [
+            "pageTitle" => $pageTitle,
+            "pageDescription" => $pageDescription,
+            "message" => $message,
+        ]); 
+
     }
 
 
