@@ -150,25 +150,6 @@ class Tools  {
     }
 
     /**
-     * Redirige l'utilisateur vers une url spécifiée
-     *
-     * @param string $url L'url vers laquelle rediriger l'utilisateur
-     * @param string $message (optionnel) Le message à afficher avant la redirection. Si aucun message n'est spécifié, l'utilisateur sera redirigé sans affichage de message
-     *
-     * @return void
-     */
-    public function redirectTo(string $url, string $message = '') {
-        if(!empty(trim($url))) {
-            if(!empty(trim($message))) {
-                $_SESSION['message'] = $message;
-            }
-            header('Location: ' . URL . $url);
-            exit;
-        }
-    }
-
-
-    /**
     * Filtre une chaîne de caractères pour éviter les injections XSS
     *
     * @param string $data La chaîne à filtrer

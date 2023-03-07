@@ -27,14 +27,16 @@ abstract class AbstractController {
      *
      * @return void
      */
-    public function redirectTo(string $url, string $message = ''): void {
+    public function redirectTo(string $url, string $message = '',string $type ='success') {
         if(!empty(trim($url))) {
             if(!empty(trim($message))) {
-                $_SESSION['message'] = $message;
+                $_SESSION['message'] = [
+                    'type' => $type,
+                    'content' => $message
+                ];
             }
             header('Location: ' . URL . $url);
             exit;
         }
-    }
-      
+    }  
 }
