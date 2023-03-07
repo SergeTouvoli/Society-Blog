@@ -53,6 +53,9 @@ class Router {
                     case PAGE_RECHERCHE:
                         $this->postController->getSearchPage();
                         break;
+                    case PAGE_GESTION_CATEGORIES:
+                        $this->adminController->getAdminGestionCategoriesPage();
+                        break;
                     case PAGE_POST:
                         if (isset($url[1])) {
                             $this->postController->getPostPage($url[1]);
@@ -114,6 +117,13 @@ class Router {
                             $this->pageController->getHomePage(1);
                         } else {
                             $this->userController->deleteUser($url[1]);                      
+                        }
+                        break;
+                    case DELETE_CATEGORIE:
+                        if (!isset($url[1])) {
+                            $this->pageController->getHomePage(1);
+                        } else {
+                            $this->adminController->deleteCategory($url[1]);                      
                         }
                         break;
                     case CHANGE_ROLE:

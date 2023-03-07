@@ -147,6 +147,12 @@ function confirmDeletePost(idPost) {
     }
 }
 
+function confirmDeleteCategory(idCategory) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')) {
+        window.location.href = `suppression-category/${idCategory}`;
+    }
+}
+
 function confirmDeleteUser(idUser) {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
         window.location.href = `suppression-user/${idUser}`;

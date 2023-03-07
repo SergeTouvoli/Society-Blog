@@ -18,6 +18,26 @@ class Category extends DatabaseTools {
         return $categories;
     }
 
+    public function getCategoriesWithAuthorAndPostCount(): array{
+        $sql = "SELECT c.category_id, c.category_name, u.user_pseudo AS author, COUNT(p.post_id) AS post_count
+                FROM categories c
+                LEFT JOIN posts p ON c.category_id = p.post_category
+                LEFT JOIN users u ON c.category_author = u.user_id
+                GROUP BY c.category_id
+                ORDER BY c.category_id";
+        $categories = $this->dbTools->dbSelectAll($sql);
+        return $categories;
+    }
+
+
+    public function getNbPostsOfCategory(int $idCategory){
+        $sql = "SELECT COUNT(*) AS nbPosts FROM posts WHERE post_category = :idCategory";
+        $params = array("idCategory" =>  $idCategory);
+        $postCount = $this->dbTools->dbSelectOne($sql,$params);
+        return $postCount['nbPosts'];
+    }
+    
+
     /**
      * Ajoute une catégorie dans la bdd 
      *

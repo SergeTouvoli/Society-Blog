@@ -4,18 +4,21 @@ require_once "models/User.php";
 require_once "models/Category.php";
 require_once "class/Tools.php";
 
-class AdminController  {
+class AdminController extends AbstractController  {
 
     private $users;
     private $posts;
     private $categories;
     private $tools;
+    private $directory;
+
 
     public function __construct(){
         $this->users = new User;
         $this->posts = new Post;
         $this->categories = new Category;
         $this->tools = new Tools;
+        $this->directory = "admin";
     }
 
     /**
@@ -29,25 +32,24 @@ class AdminController  {
      * @param int $idUser L'ID de l'utilisateur dont le rôle doit être modifié.
      * @return void
     */
-    public function changeRole($idUser){
+    public function changeRole(int $idUser): void{
   
-        $idUser = intval($idUser);
         // Vérifie si l'utilisateur est connecté 
         if (!$this->users->isConnected()) {
-            $this->tools->redirectTo(PAGE_ACCUEIL);
+            $this->redirectTo(PAGE_ACCUEIL);
             return;
         }
         
         // Vérifie si l'utilisateur connecté est un administrateur
         if (!$this->users->isAdmin()) {
-            $this->tools->redirectTo(PAGE_ACCUEIL);
+            $this->redirectTo(PAGE_ACCUEIL);
             return;
         }
 
         $success = $this->users->changeRoleUser($idUser);
         if($success){
             $_SESSION['message'] = "Changement effectué !";
-            $this->tools->redirectTo(PAGE_GESTION_UTILISATEURS);
+            $this->redirectTo(PAGE_GESTION_UTILISATEURS);
             return;
         }
         
@@ -55,9 +57,6 @@ class AdminController  {
 
 
     /**
-     * 
-     * getAdminGestionPostsPage
-     * 
      * Affiche la page de gestion des posts pour l'administrateur.
      *
      * Si l'utilisateur actuellement connecté n'est pas un administrateur, il est redirigé vers la page d'accueil.
@@ -65,18 +64,21 @@ class AdminController  {
      *
      * @return void
     */
-    public function getAdminGestionPostsPage(){
+    public function getAdminGestionPostsPage(): void{
+
         if (!$this->users->isAdmin()) {
-            $this->tools->redirectTo(PAGE_ACCUEIL);
+            $this->redirectTo(PAGE_ACCUEIL);
             return;
         }
 
-        $user_role = $this->users->getRoleOfUser($_SESSION['id']);
-
         $pageTitle = "Gestion des posts";
-        $pageDescription = "";        
-        $posts = $this->posts->getAllPost();
-        require_once "views/admin/managePosts.phtml";
+        $pageDescription = "";   
+
+        $this->renderView($this->directory, "managePosts", [
+            "pageTitle" => $pageTitle,
+            "pageDescription" => $pageDescription,
+            "posts" => $this->posts->getAllPost(),
+        ]); 
     }
 
 
@@ -91,42 +93,67 @@ class AdminController  {
      *
      * @return void
     */
-    public function getAdminGestionUsersPage() {
-        if (!$this->users->isAdmin() == true) {
-          $this->tools->redirectTo(PAGE_ACCUEIL);
+    public function getAdminGestionUsersPage(): void{
+
+        if (!$this->users->isAdmin()) {
+          $this->redirectTo(PAGE_ACCUEIL);
           return;
         }
       
         $pageTitle = "Gestion des utilisateurs";
         $pageDescription = "";
-        $users = $this->users->getAllUsers();
-        require_once "views/admin/manageUsers.phtml";
+                
+        $this->renderView($this->directory, "manageUsers", [
+            "pageTitle" => $pageTitle,
+            "pageDescription" => $pageDescription,
+            "users" => $this->users->getAllUsers()
+        ]); 
     }
 
     /**
-     * 
-     * getAdminAddCategory
-     * 
+     * Affiche la page de gestion des catégories pour l'administrateur.
+     *
+     * Si l'utilisateur actuellement connecté n'est pas un administrateur, il est redirigé vers la page d'accueil.
+     * Sinon, la page de gestion des catégories est chargée avec la liste de tous les catégories enregistrés dans la base de données.
+     *
+     * @return void
+    */
+    public function getAdminGestionCategoriesPage(): void{
+
+        if (!$this->users->isAdmin()) {
+            $this->redirectTo(PAGE_ACCUEIL);
+            return;
+        }
+        
+        $pageTitle = "Gestion des catégories";
+        $pageDescription = "";
+        
+        $this->renderView($this->directory, "manageCategories", [
+            "pageTitle" => $pageTitle,
+            "pageDescription" => $pageDescription,
+            "categories" => $this->categories->getCategoriesWithAuthorAndPostCount(),
+        ]); 
+    }
+
+    /** 
      * Affiche la page page d'ajout de catégorie pour l'administrateur.
      *
      * Vérifie si l'utilisateur connecté est un administrateur.
      * Traite le formulaire d'ajout de catégorie en vérifiant si la catégorie existe déjà.
-     * En cas de succès, ajoute la catégorie à la base de données.
+     * En cas de succès, ajoute la catégorie à la base de données et redirige l'utilisateur vers la page de gestion des catégories avec un message de confirmation.
      * Affiche les erreurs ou les messages de succès.
      * @return void
     */
-    public function getAdminAddCategory(){
+    public function getAdminAddCategory(): void{
       
-        // Vérifie si l'utilisateur connecté est un administrateur
         if (!$this->users->isAdmin()) {
-            $this->tools->redirectTo(PAGE_ACCUEIL);
+            $this->redirectTo(PAGE_ACCUEIL);
             return;
         }
 
-        $title = "Ajouter une categorie";
-        $description = "";
+        $pageTitle = "Ajouter une categorie";
+        $pageDescription = "";
         $errors = []; 
-        $valids = []; 
 
         // Traitement de l'ajout de catégorie
         if(isset($_POST['category_name']) && !empty($_POST['category_name'])){ 
@@ -141,14 +168,49 @@ class AdminController  {
             }
 
             if(count($errors) == 0){
-                if($this->categories->addCategory($category_name,$category_author,$errors,$valids)== true){
-                    $valids[] = "Catégorie ajoutée avec succès";
+                if($this->categories->addCategory($category_name,$category_author)){
+                    $this->redirectTo(PAGE_GESTION_CATEGORIES,"Catégorie ajoutée avec succès");
+                    return;
                 }
             }
          
         }
-    
-        require_once "views/admin/addCategory.phtml";
-    }
 
+        $this->renderView($this->directory, "addCategory", [
+            "pageTitle" => $pageTitle,
+            "pageDescription" => $pageDescription,
+            "errors" => $errors,
+            "categories" => $this->categories->getCategoriesWithAuthorAndPostCount(),
+        ]); 
+    }
+    
+    /**
+     * Supprime une catégorie en fonction de son identifiant.
+     *
+     * Cette fonction vérifie d'abord si l'utilisateur est un administrateur. Si ce n'est pas le cas, l'utilisateur est redirigé vers la page d'accueil. 
+     * Sinon, elle vérifie s'il existe des posts associés à la catégorie. Si tel est le cas, un message d'erreur est affiché et l'utilisateur est redirigé vers la page de gestion des catégories. 
+     * Sinon, la catégorie est supprimée et l'utilisateur est redirigé vers la page de gestion des catégories avec un message de succès.
+     *
+     * @param int $idCategory L'identifiant de la catégorie à supprimer.
+     * @return void
+     */
+    public function deleteCategory(int $idCategory): void {
+
+        if (!$this->users->isAdmin()) {
+            $this->redirectTo(PAGE_ACCUEIL);
+            return;
+        }
+
+        // Vérifie s'il existe des posts associés à la catégorie
+        $nbPosts = $this->categories->getNbPostsOfCategory($idCategory);
+        if($nbPosts > 0){
+            $message = "Impossible de supprimer cette catégorie car elle contient des posts !";
+            $this->redirectTo(PAGE_GESTION_CATEGORIES,$message,'error');
+            return;
+        } 
+
+        // Supprime la catégorie et redirige vers la page de gestion des catégories avec un message de succès
+        $this->categories->deleteCategory($idCategory);
+        $this->redirectTo(PAGE_GESTION_CATEGORIES,'Suppression effectuée !');
+    }
 }

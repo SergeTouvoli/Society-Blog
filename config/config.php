@@ -36,6 +36,7 @@ const PAGE_CATEGORIES = "categories";
 const PAGE_GESTION_POSTS = "gestionPosts";
 const PAGE_SEARCH_POST = "searchPost";
 const PAGE_GESTION_UTILISATEURS = "gestionUtilisateurs";
+const PAGE_GESTION_CATEGORIES = "gestionCategories";
 const PAGE_MON_COMPTE = "monCompte";
 const PAGE_COMPTE = "compte";
 const PAGE_EDIT_COMPTE = "editCompte";
@@ -48,6 +49,7 @@ const ADD_COMMENT = "ajouter-commentaire";
 const LOAD_COMMENT = "charger-commentaire";
 const DELETE_POST = "suppression-post";
 const DELETE_USER = "suppression-user";
+const DELETE_CATEGORIE = "suppression-category";
 const DELETE_COMMENT = "suppression-commentaire";
 const CHANGE_ROLE = "change-role";
 
