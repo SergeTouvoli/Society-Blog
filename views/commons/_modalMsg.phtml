@@ -1,6 +1,6 @@
 <?php if(isset($_SESSION['message']) && !empty($_SESSION['message'])) : ?>
 
-  <div id="myModal" class="modal success">
+  <div id="myModal" class="modal <?= $_SESSION['message']['type'] ?>">
     <div class="modal-content">
       <span class="close">&times;</span>
       <p class="modal-content-msg">
