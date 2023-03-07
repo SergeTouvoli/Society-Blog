@@ -1,3 +1,8 @@
+# Ignore le fichier models/config.php
 models/config.php
-public/images/avatars
-public/images/imgPost
+
+# Ignore le dossier public/images/avatars
+public/images/avatars/
+
+# Ignore le dossier public/images/imgPost
+public/images/imgPost/
