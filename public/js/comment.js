@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function() {
   loadComment();
 });
 
-async function submitComment(event) {
+const commentForm = document.getElementById('commentForm');
+commentForm.addEventListener('submit', async function(event) {
   event.preventDefault(); 
 
   const currentOrigin = window.location.origin;
@@ -19,7 +20,6 @@ async function submitComment(event) {
   const successInfos = document.querySelector('.successComment');
   const errorInfos = document.querySelector('.errorComment');
   
-
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -39,4 +39,4 @@ async function submitComment(event) {
     console.error(error);
     errorInfos.textContent = 'Une erreur est survenue. Veuillez réessayer.';
   }
-}
+});
