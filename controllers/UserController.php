@@ -393,8 +393,7 @@ class UserController extends AbstractController  {
         
                 if (count($errors) == 0) {
                     if ($this->user->saveUser($register)) {
-                        $_SESSION['message'] = "Inscription réussie, vous pouvez vous connecter!";
-                        $this->redirectTo(PAGE_CONNEXION);
+                        $this->redirectTo(PAGE_CONNEXION,"Inscription réussie, vous pouvez vous connecter!");
                         return;
                     }
                 }
