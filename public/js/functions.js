@@ -60,34 +60,12 @@ function displayCharCount(element, minCaractères = 0, maxCaractères) {
 
 function verifFormatPassword(input) {
     if (!input) return;
-    const messageBox = document.querySelector('#messageBox');
     const password = input.value;
-
-    messageBox.style.display = 'block';
 
     verifLowerCaseLetters(password, "letter");
     verifUpperCaseLetters(password, "capital");
     verifNumbers(password, "number");
     verifLength(password, "length", 5);
-}
-
-function verifFormatPasswordConfirm(inputPassword, inputPasswordConfirm) {
-    if (!inputPassword || !inputPasswordConfirm) return;
-    let password = inputPassword.value;
-    let passwordConfirm = inputPasswordConfirm.value;
-    let msg = document.querySelector('#conform');
-
-    msg.style.display = 'block';
-
-    inputPasswordConfirm.addEventListener('keyup', function() {
-        if (password.length === passwordConfirm.length) {
-            msg.classList.remove("invalid");
-            msg.classList.add("valid");
-        } else {
-            msg.classList.remove("valid");
-            msg.classList.add("invalid");
-        }
-    });
 }
 
 function verifLowerCaseLetters(input, id) {
@@ -128,6 +106,27 @@ function verifNumbers(input, id) {
         element.classList.add('invalid');
     }
 }
+
+
+function verifFormatPasswordConfirm(inputPassword, inputPasswordConfirm) {
+    if (!inputPassword || !inputPasswordConfirm) return;
+    let password = inputPassword.value;
+    let passwordConfirm = inputPasswordConfirm.value;
+    let msg = document.querySelector('#conform');
+
+    msg.style.display = 'block';
+
+    inputPasswordConfirm.addEventListener('keyup', function() {
+        if (password.length === passwordConfirm.length) {
+            msg.classList.remove("invalid");
+            msg.classList.add("valid");
+        } else {
+            msg.classList.remove("valid");
+            msg.classList.add("invalid");
+        }
+    });
+}
+
 
 function verifLength(input, id, minLength = 0, maxLength = null) {
     const element = document.getElementById(id);

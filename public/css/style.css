@@ -922,9 +922,8 @@ hr {
   margin-bottom: 20px;
 }
 
-/* The message box is shown when the user clicks on the password field */
 #messageBox {
-  display:none;
+  display:block;
   background: #f1f1f1;
   color: #000;
   position: relative;
@@ -937,7 +936,6 @@ hr {
   font-size: 2.5rem;
 }
 
-/* Add a green text color and a checkmark when the requirements are right */
 .valid {
   color: green;
 }
@@ -948,7 +946,6 @@ hr {
   content: "✔";
 }
 
-/* Add a red text color and an "x" when the requirements are wrong */
 .invalid {
   color: red;
 }
