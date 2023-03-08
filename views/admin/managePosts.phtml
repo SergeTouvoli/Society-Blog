@@ -19,7 +19,7 @@ ob_start();
                 <tr>
                     <td><?= htmlspecialchars($post['post_title']) ?></td>
                     <td><?= Tools::convertTimestampToFrenchDate($post['post_created_date']) ?></td>
-                    <td><a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= htmlspecialchars($post['user_pseudo']) ?>"><?= htmlspecialchars($post['user_pseudo']) ?></a></td>
+                    <td><a href="<?= URL.PAGE_COMPTE ?>/<?= htmlspecialchars($post['user_pseudo']) ?>"><?= htmlspecialchars($post['user_pseudo']) ?></a></td>
                     <td><?= nl2br(substr($post['post_content'], 0,45 ) )   . "..." ?></td>
                     <td><?= htmlspecialchars($post['category_name']) ?></td>
                     <td class="actions">
@@ -31,8 +31,8 @@ ob_start();
             <?php endforeach ?>
         </table>
         <div class="btnGroup">
-            <a href="<?= URL ?>ajoutPost" class="btnAddPost"><i class="fa-solid fa-plus"></i> <p>Article</p></a>
-            <a href="<?= URL ?>ajoutCategorie" class="btnAddPost"><i class="fa-solid fa-plus"></i><p>Categorie</p></a>
+            <a href="<?= URL.PAGE_AJOUT_POST ?>" class="btnAddPost"><i class="fa-solid fa-plus"></i> <p>Article</p></a>
+            <a href="<?= URL.PAGE_AJOUT_CATEGORIE ?>" class="btnAddPost"><i class="fa-solid fa-plus"></i><p>Categorie</p></a>
         </div>
     </div>
 <?php

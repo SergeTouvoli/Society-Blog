@@ -13,7 +13,7 @@
     <ul class="listInfos">
         <li>Utilisateurs inscrits : <?= $nbUsers; ?></li>
         <li>Dernier utilisateur inscrit :
-            <a href="<?= URL ?>compte/<?= $lastUser['user_pseudo'] ?>"><?= htmlspecialchars($lastUser['user_firstname']) ?> <?= htmlspecialchars($lastUser['user_lastname'])  ?> </a>
+            <a href="<?= URL.PAGE_COMPTE ?>/<?= $lastUser['user_pseudo'] ?>"><?= htmlspecialchars($lastUser['user_firstname']) ?> <?= htmlspecialchars($lastUser['user_lastname'])  ?> </a>
         </li>
     </ul>
 

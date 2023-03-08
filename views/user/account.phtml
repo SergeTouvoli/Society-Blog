@@ -11,9 +11,9 @@ ob_start();
 
             <p class ="name" ><?= htmlspecialchars($user['user_firstname']) ?> <?= htmlspecialchars($user['user_lastname']) ?> </p>
 
-            <a href="<?= URL ?>monCompte#infosCompte"  class="button infos" title="Voir les informations de mon compte">Informations du compte</a>
-            <a href="<?= URL ?>editCompte#editInfos" class="button success" title="Modifier les informations de mon compte">Modifier mes informations</a>
-            <a href="<?= URL ?>deconnexion" class="button danger" title="Me déconnecter">Déconnexion</a>
+            <a href="<?= URL.PAGE_COMPTE ?>#infosCompte"  class="button infos" title="Voir les informations de mon compte">Informations du compte</a>
+            <a href="<?= URL.PAGE_EDIT_COMPTE ?>#editInfos" class="button success" title="Modifier les informations de mon compte">Modifier mes informations</a>
+            <a href="<?= URL.DECONNEXION ?>" class="button danger" title="Me déconnecter">Déconnexion</a>
         </div>
         
         <div class="right">
@@ -25,7 +25,7 @@ ob_start();
                         <h2><?= $pageTitle ?></h2>
                         <p class="infoForms">Une fois la modification effectué vous serez déconnecté</p>
 
-                        <span class="text-center">Cliquez <a href="<?= URL ?>editAvatar#editAvatar">ici</a> pour changer d'avatar</span>
+                        <span class="text-center">Cliquez <a href="<?= URL.PAGE_EDIT_AVATAR ?>#editAvatar">ici</a> pour changer d'avatar</span>
                         <?php include('./views/commons/_errors.phtml'); ?>
                         <?php include('./views/commons/_valids.phtml'); ?>
                         

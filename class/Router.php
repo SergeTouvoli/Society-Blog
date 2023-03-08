@@ -44,7 +44,7 @@ class Router {
                     case PAGE_INSCRIPTION:
                         $this->userController->getRegisterPage();
                         break;
-                    case PAGE_DECONNEXION:
+                    case DECONNEXION:
                         $this->userController->deconnect();
                         break;
                     case PAGE_CONTACT:

@@ -75,7 +75,7 @@ class PostController extends AbstractController  {
                     $name = Tools::sanitize($post['post_title']);
                     $slug = Tools::sanitize($post['post_slug']);
         
-                    $output .= '<a href="'.URL.'post/'.$slug.'">';
+                    $output .= '<a href="'.URL.PAGE_POST.'/'.$slug.'">';
                     $output .= '    <li>';
                     $output .= '        <div id="listPostSearch">';
                     $output .= '            <span class="namepost">'.$name.'</span>';

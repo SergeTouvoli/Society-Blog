@@ -10,7 +10,7 @@ ob_start();
                     <img src="<?= URL ?>public/images/imgPost/<?= $post['post_image'] ?>" class="img_art" alt="image">
                 </div>
                 <div class="infosArticle">
-                    <a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= htmlspecialchars($post['user_pseudo']) ?>" class="infoAuthor" > 
+                    <a href="<?= URL.PAGE_COMPTE ?>/<?= htmlspecialchars($post['user_pseudo']) ?>" class="infoAuthor" > 
                         <i class="fa-solid fa-user-pen" ></i>
                         <span><?= htmlspecialchars($post['user_pseudo']) ?></span>
                     </a>

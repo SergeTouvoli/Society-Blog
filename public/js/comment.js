@@ -12,7 +12,7 @@ commentForm.addEventListener('submit', async function(event) {
   event.preventDefault(); 
 
   const currentOrigin = window.location.origin;
-  const url = currentOrigin + '/Social/ajouter-commentaire';
+  const url = currentOrigin + '/Social/ajoutCommentaire';
 
   // Récupère les données du formulaire
   const form = document.getElementById('commentForm');

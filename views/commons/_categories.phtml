@@ -4,7 +4,7 @@
         <h3>Catégories</h3>
     </div>
     <?php foreach ($categories as $cat): ?>
-    <a href="<?= URL ?>categories/<?= htmlspecialchars($cat['category_name']) ?>"> <?= htmlspecialchars($cat['category_name']) ?> </a>
+    <a href="<?= URL.PAGE_CATEGORIES ?>/<?= htmlspecialchars($cat['category_name']) ?>"> <?= htmlspecialchars($cat['category_name']) ?> </a>
     <?php endforeach; ?>
 </div>
 

@@ -12,7 +12,7 @@ ob_start();
         
         <?php foreach ($posts as $post): ?>
           <div class="card-article ">
-            <a href="<?= URL ?><?= PAGE_POST ?>/<?= htmlspecialchars($post['post_slug']) ; ?>" class="white" >
+            <a href="<?= URL.PAGE_POST ?>/<?= htmlspecialchars($post['post_slug']) ; ?>" class="white" >
               <h2 class="title"><?= htmlspecialchars($post['post_title']) ?></h2>
             </a>
 
@@ -21,7 +21,7 @@ ob_start();
             </div>
             
             <div class="infosArticle">
-              <a href="<?= URL ?><?= PAGE_COMPTE ?>/<?= $post['user_pseudo'] ?>" class="infoAuthor" > 
+              <a href="<?= URL.PAGE_COMPTE ?>/<?= $post['user_pseudo'] ?>" class="infoAuthor" > 
                 <i class="fa-solid fa-user-pen" ></i>
                 <span><?= htmlspecialchars($post['user_pseudo']) ?></span>
               </a>
@@ -36,8 +36,8 @@ ob_start();
             </div>
             <hr>
             <div class="card-footer">
-              <a href="<?= URL ?><?= PAGE_POST ?>/<?= $post['post_slug']."#listComments" ?>" class="nbComments"> <strong>Commentaires : </strong>&nbsp; <span class="tag"><?= $post['comment_count'] ?></span></a> 
-              <a href="<?= URL ?><?= PAGE_POST ?>/<?= $post['post_slug']; ?>" class="readmore"><span>Lire la suite</span></a> 
+              <a href="<?= URL.PAGE_POST ?>/<?= $post['post_slug']."#listComments" ?>" class="nbComments"> <strong>Commentaires : </strong>&nbsp; <span class="tag"><?= $post['comment_count'] ?></span></a> 
+              <a href="<?= URL.PAGE_POST ?>/<?= $post['post_slug']; ?>" class="readmore"><span>Lire la suite</span></a> 
             </div>
             
 

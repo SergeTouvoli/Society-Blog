@@ -10,7 +10,7 @@ function openMenu() {
 function loadComment(){
     const currentOrigin = window.location.origin;
     const outputDiv = document.querySelector('#listComments');
-    const url = currentOrigin + '/Social/charger-commentaire';
+    const url = currentOrigin + '/Social/chargerCommentaire';
     const idPost = document.querySelector('.card-article').dataset.id;
       
     fetch(url,{
@@ -142,19 +142,19 @@ function verifLength(input, id, minLength = 0, maxLength = null) {
 
 function confirmDeletePost(idPost) {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet article ?')) {
-        window.location.href = `suppression-post/${idPost}`;
+        window.location.href = `suppressionPost/${idPost}`;
     }
 }
 
 function confirmDeleteCategory(idCategory) {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')) {
-        window.location.href = `suppression-category/${idCategory}`;
+        window.location.href = `suppressionCategory/${idCategory}`;
     }
 }
 
 function confirmDeleteUser(idUser) {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
-        window.location.href = `suppression-user/${idUser}`;
+        window.location.href = `suppressionUser/${idUser}`;
     }
 }
 
@@ -164,7 +164,7 @@ function openAccount(idUser) {
 
 function changeRole(idUser) {
     if (confirm('Êtes-vous sûr de vouloir changer le rôle de cet utilisateur ?')) {
-        window.location.href = `change-role/${idUser}`;
+        window.location.href = `changerRole/${idUser}`;
     }
 }
 

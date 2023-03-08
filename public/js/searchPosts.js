@@ -18,7 +18,7 @@ function searchPosts(inputValue) {
 
   const currentOrigin = window.location.origin;
   const outputDiv = document.querySelector('.resultSearch');
-  const url = currentOrigin + '/Social/searchPost';
+  const url = currentOrigin + '/Social/recherchePost';
   
   if (inputValue !== '') {
     fetch(url,{

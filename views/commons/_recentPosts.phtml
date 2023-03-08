@@ -4,6 +4,6 @@
         <h3>Articles récents</h3>
     </div>
     <?php foreach ($recentsPosts as $p): ?>
-        <a href="<?= URL ?>post/<?= htmlspecialchars($p['post_slug']) ?>"> <?= htmlspecialchars($p['post_title']) ?> </a>
+        <a href="<?= URL.PAGE_POST ?>/<?= htmlspecialchars($p['post_slug']) ?>"> <?= htmlspecialchars($p['post_title']) ?> </a>
     <?php endforeach;?>
 </div>
