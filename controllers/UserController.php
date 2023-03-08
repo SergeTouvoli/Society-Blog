@@ -128,8 +128,7 @@ class UserController extends AbstractController  {
         // Seul un administrateur peut supprimer le compte d'un autre utilisateur
         if ($this->user->isAdmin()) {
             if ($this->user->deleteUser($idUser)) {
-                $_SESSION['message'] = "Utilisateur supprimé !";
-                $this->redirectTo(PAGE_GESTION_UTILISATEURS);
+                $this->redirectTo(PAGE_GESTION_UTILISATEURS,'Utilisateur supprimé !');
             }
         }
     }

@@ -168,8 +168,7 @@ class PostController extends AbstractController  {
         
                 if(count($errors) == 0){
                     if($this->post->addPost($addPost)){
-                        $_SESSION['message'] = "Post ajouté avec succès !";
-                        header('Location: '.PAGE_POST.'/'.$addPost['slug'].'');
+                        $this->redirectTo(PAGE_POST.'/'.$addPost['slug'].'','Post ajouté avec succès !');
                     }
                 }
             

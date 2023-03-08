@@ -51,8 +51,7 @@ class AdminController extends AbstractController  {
 
         $success = $this->users->changeRoleUser($idUser);
         if($success){
-            $_SESSION['message'] = "Changement effectué !";
-            $this->redirectTo(PAGE_GESTION_UTILISATEURS);
+            $this->redirectTo(PAGE_GESTION_UTILISATEURS,'Changement effectué !');
             return;
         }
         
