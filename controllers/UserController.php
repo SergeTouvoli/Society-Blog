@@ -350,10 +350,14 @@ class UserController extends AbstractController  {
             if(count($errors) == 0){
                 if(!empty($register['firstname']) && !empty($register['lastname'])){ 
                     $numberMaximalOfCaracters = 50;
-                    if(strlen($register['firstname']) > $numberMaximalOfCaracters || strlen($register['lastname']) > $numberMaximalOfCaracters ){ 
-                        $errors[] = "Nom ou prénom trop long !";
+                    $numberMinimalOfCaracters = 2;
+                    if(strlen($register['firstname']) < $numberMinimalOfCaracters || strlen($register['lastname']) < $numberMinimalOfCaracters ){
+                        $errors[] = "Nom ou prénom trop court ! Il doit contenir entre ".$numberMinimalOfCaracters." et ".$numberMaximalOfCaracters." caractères";
+                    } elseif(strlen($register['firstname']) > $numberMaximalOfCaracters || strlen($register['lastname']) > $numberMaximalOfCaracters ){ 
+                        $errors[] = "Nom ou prénom trop long ! Il doit contenir entre ".$numberMinimalOfCaracters." et ".$numberMaximalOfCaracters." caractères";
                     }
                 }
+                
     
                 if(!empty($register['pseudo'])) {
                     $numberMinimalOfCaracters = 3;

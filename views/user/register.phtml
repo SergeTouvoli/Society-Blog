@@ -12,18 +12,17 @@ ob_start();
 
         <div class="inputDiv">
             <label>Pseudo *</label>
-           <input class="input" id="user_pseudo" data-infos="infosPseudo" minlength="3" maxlength="10" type="text" name="user_pseudo" placeholder="Entrez votre pseudo" value="<?= $register['pseudo'] ?>" required> 
+            <input class="input" id="userPseudo" minlength="3" maxlength="10" type="text" name="user_pseudo" placeholder="Entrez votre pseudo" value="<?= $register['pseudo'] ?>" > 
         </div>
 
         <div class="inputDiv">
             <label>Prénom *</label>
-           <input class="input" type="text" data-infos="infosPrenom"  name="user_firstname" maxlength="50" placeholder="Entrez votre prénom (50 caractères max)" value="<?= $register['firstname'] ?>" required> 
-
+           <input class="input" type="text" name="user_firstname" minlength="2" maxlength="50" placeholder="Entrez votre prénom (50 caractères max)" value="<?= $register['firstname'] ?>" > 
         </div>
 
         <div class="inputDiv">
             <label>Nom *</label>
-            <input class="input" type="text" data-infos="infosNom"   name="user_lastname" maxlength="50" placeholder="Entrez votre nom (50 caractères max)" value="<?= $register['lastname'] ?>" required>
+            <input class="input" type="text" name="user_lastname" minlength="2" maxlength="50" placeholder="Entrez votre nom (50 caractères max)" value="<?= $register['lastname'] ?>" >
         </div>
         
         <div class="inputDiv">
@@ -53,7 +52,7 @@ ob_start();
         
         <p class="infosFormat text-center">Formats acceptés : ['jpg','jpeg','gif','png']</p>
 
-        <button type="submit" class="btnRegister">S'inscrire</button>
+        <input type="submit" name="register" value="S'inscrire" class="btnRegister">
     </form>
 <?php
 $scripts = '<script src="'.URL.'public/js/register.min.js"></script>';
