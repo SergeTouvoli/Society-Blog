@@ -73,7 +73,7 @@ class UserController extends AbstractController  {
             if(count($errors) == 0){
                 if(password_verify($data['actualPassword'], $user['user_password']) == true) {
                     if($this->user->updatePassword($data['newPassword'],$user['user_id'])){
-                        $this->deconnect(); 
+                        $this->redirectTo(PAGE_COMPTE, "Votre mot de passe a bien été modifié !");
                     }else{
                         $errors[] = "Une erreur est survenue";
                     }
