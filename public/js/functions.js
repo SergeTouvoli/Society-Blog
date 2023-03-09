@@ -180,19 +180,15 @@ function viewPassword(eye, password) {
         eye.classList.add('fa-eye');
         eye.style.color = 'black';
     }
-    setTimeout(() => {
-        password.style.transition = 'all 0.5s';
-        password.type = 'password';
-        eye.style.transition = 'all 0.5s';
-        eye.classList.remove('fa-eye-slash');
-        eye.classList.add('fa-eye');
-        eye.style.color = 'black';
+    setTimeout(() => { 
+        hidePassword(eye, password)
     }, 10000);
 }
 
 function hidePassword() {
     password.type = 'password';
+    eye.style.transition = 'all 0.5s';
     eye.classList.remove('fa-eye-slash');
     eye.classList.add('fa-eye');
     eye.style.color = 'black';
-}  
+} 
