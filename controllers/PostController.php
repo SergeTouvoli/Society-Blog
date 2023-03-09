@@ -307,9 +307,7 @@ class PostController extends AbstractController  {
                 
                 // Affiche un message de confirmation
                 if ($updateResult) {
-                    $newSlug = $data['slug'];
-                    $_SESSION['message'] = "Modification effectuée avec succès !";
-                    $this->redirectTo(PAGE_POST."/".$newSlug);
+                    $this->redirectTo(PAGE_POST."/".$data['slug'],'Modification effectuée avec succès !');
                     return;
                 } else {
                     $errors[] = "Une erreur est survenue !";
