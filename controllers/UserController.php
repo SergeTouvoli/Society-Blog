@@ -281,7 +281,7 @@ class UserController extends AbstractController  {
                         if(isset($_POST['remember_me']) && $_POST['remember_me'] == 1){
                             $this->user->setRememberMeToken($user['user_id']);
                         }
-                        $this->user->updateLastConnexionAndLogin($login['lastConnexion'], $login['email'],$user);
+                        $this->user->updateLastConnexionAndLogin($login['lastConnexion'],$user);
 
                     }else {
                         $errors[] = "Merci de vérifier vos identifiants";
@@ -326,8 +326,8 @@ class UserController extends AbstractController  {
             'avatar' => 'silhouette.png',
             'date_create' => time()
         ];
-            
-        if(isset($_POST['user_mail']) && !empty($_POST['user_mail'])){
+        
+        if(isset($_POST['register'])){
 
             $register = [
                 'pseudo' => Tools::sanitize($_POST['user_pseudo']),

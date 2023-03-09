@@ -90,13 +90,7 @@ class User extends DatabaseTools {
         return $result['user_mail'];
     }
 
-    public function updateRememberMeToken($token,$idUser){
-        $sql = "UPDATE users SET remember_me_token = :token WHERE user_id = :idUser";
-        $sth = $this->db->prepare($sql); 
-        $sth->bindValue('token', $token, PDO::PARAM_STR);
-        $sth->bindValue('idUser', $idUser, PDO::PARAM_STR);
-        return $sth->execute();
-    }
+
 
     public function updateAvatar($newAvatar,int $idUser){
         $sql = "UPDATE users SET user_avatar = :newAvatar WHERE user_id = :idUser";
@@ -117,12 +111,12 @@ class User extends DatabaseTools {
      * @return void
      * 
     */
-    public function updateLastConnexionAndLogin($user_last_connexion,$user_mail,$infosUser){
+    public function updateLastConnexionAndLogin($user_last_connexion,$infosUser){
 
         $sql = "UPDATE users SET user_last_connexion = :user_last_connexion WHERE user_mail = :mail";
         $sth = $this->db->prepare($sql); 
         $sth->bindValue('user_last_connexion', $user_last_connexion, PDO::PARAM_INT);
-        $sth->bindValue('mail', $user_mail, PDO::PARAM_STR);
+        $sth->bindValue('mail', $infosUser['user_mail'], PDO::PARAM_STR);
         if($sth->execute()){
             header('Location: '.PAGE_MON_COMPTE);
             $_SESSION = [
@@ -158,7 +152,7 @@ class User extends DatabaseTools {
 
                 // Si l'utilisateur est trouvé, authentification
                 if($user){
-                    $this->updateLastConnexionAndLogin($lastConnexion, $user['user_mail'], $user);
+                    $this->updateLastConnexionAndLogin($lastConnexion,$user);
                     return;
                 }            
             }
@@ -169,7 +163,6 @@ class User extends DatabaseTools {
     }
 
     /**
-     * setRememberMeToken()
      * 
      * Génère et enregistre un jeton "remember me" pour l'utilisateur
      * @param int $user_id L'ID de l'utilisateur
@@ -186,6 +179,21 @@ class User extends DatabaseTools {
             // Enregistrement du cookie "remember me"
             setcookie('remember_me', $token . ':' . $hash, time() + (60 * 60 * 24 * 30), '/', '', true, true);// expire dans 30 jours
         }
+    }
+    
+    /**
+     * 
+     * Met à jour le token "Se souvenir de moi" de l'utilisateur dans la base de données.
+     * @param string $token Token à enregistrer dans la base de données.
+     * @param int $idUser Identifiant de l'utilisateur dont le token doit être mis à jour.
+     * @return bool Retourne true si la requête a été exécutée avec succès, false sinon.
+    */
+    public function updateRememberMeToken($token,$idUser){
+        $sql = "UPDATE users SET remember_me_token = :token WHERE user_id = :idUser";
+        $sth = $this->db->prepare($sql); 
+        $sth->bindValue('token', $token, PDO::PARAM_STR);
+        $sth->bindValue('idUser', $idUser, PDO::PARAM_STR);
+        return $sth->execute();
     }
 
 
