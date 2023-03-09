@@ -169,12 +169,12 @@ class Post extends DatabaseTools {
 
         $sql = "SELECT p.*, u.user_id, u.user_pseudo, c.category_name
         FROM posts AS p
-        LEFT JOIN users AS u
+        JOIN users AS u
             ON u.user_id = p.post_author
         JOIN categories AS c
             ON c.category_id = p.post_category
         ORDER BY p.post_created_date DESC";
-        $allPosts = $this->dbTools ->dbSelectAll($sql);        
+        $allPosts = $this->dbTools->dbSelectAll($sql);        
         return $allPosts;
     }
     
