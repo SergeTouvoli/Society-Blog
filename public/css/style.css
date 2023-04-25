@@ -439,10 +439,6 @@ form#editInfos#output_image{
 #editAvatar .containerUpload .middle {
   opacity: 1;
 }
-/* 
-#editAvatar p {
-  margin-top: 0;
-} */
 
 #editAvatar .middle .iconCamera {
   color: rgb(255, 255, 255);
