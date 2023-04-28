@@ -146,7 +146,7 @@ class AdminController extends AbstractController  {
             "content" => $message['contact_content'],
             "date" => Tools::convertTimestampToFrenchDate($message['contact_date']),
         ];
-        $pageTitle = "Recu le ".$message['date']." de ".$message['author']."";
+        $pageTitle = "Reçu le ".$message['date']." par ".$message['author']."";
    
         $this->renderView($this->directory, "viewMessage", [
             "pageTitle" => $pageTitle,
