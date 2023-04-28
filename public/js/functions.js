@@ -185,7 +185,7 @@ function viewPassword(eye, password) {
     }, 10000);
 }
 
-function hidePassword() {
+function hidePassword(eye, password) {
     password.type = 'password';
     eye.style.transition = 'all 0.5s';
     eye.classList.remove('fa-eye-slash');
