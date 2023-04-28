@@ -15,10 +15,9 @@ ob_start();
 
             <div id="infosCompte">
 
-                <div div class="infos text-center">
+                <div class="text-center">
                     <p>Inscrit depuis le <?= Tools::convertTimestampToFrenchDate($user['user_date_create']) ?></p>
                     <p>Dernière connexion : <?= Tools::convertTimestampToFrenchDate($user['user_last_connexion']) ?></p>
-
                     <div>
                         <?= Tools::concatPrenomNom($user['user_firstname'],$user['user_lastname']); ?>
                         a publié <?= $nbArticles; ?> article(s) :

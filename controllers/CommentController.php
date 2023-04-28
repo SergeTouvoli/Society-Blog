@@ -117,7 +117,7 @@ class CommentController extends AbstractController {
                 $output .= '<div class="commentContent">';
                 $output .= '<p class="commentAuthor">';
                 $output .= '<a href="' . URL . PAGE_COMPTE . '/' . $pseudo. '">' . $pseudo . ',' . '</a>';
-                $output .= '<span style="font-size:2rem">' .$createdDate. '</span>';
+                $output .= '<span>' .$createdDate. '</span>';
                 $output .= '</p>';
                 $output .= '<p>' . htmlspecialchars($c['comment_content']) . '</p>';
                 $output .= '</div>';
