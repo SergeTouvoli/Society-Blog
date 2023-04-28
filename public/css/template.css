@@ -6,9 +6,9 @@
 
 body {
     background: #f1f1f1;
-    font-size: 2rem;
     margin: 0;
     height: 100%;
+    font-size: 1.5rem;
     line-height: 1.6em;
     font-family: Dongle,sans-serif
 }
@@ -31,7 +31,6 @@ body {
 }
 
 html {
-    font-size: 62.5%;
     height: 100%
 }
 
@@ -40,17 +39,17 @@ a {
 }
 
 h1 {
-    font-size: 4.5rem;
+    font-size: 2.7rem;
     text-align: center
 }
 
 h2 {
-    font-size: 3rem;
+    font-size: 1.7rem;
     text-align: center
 }
 
 h3 {
-    font-size: 3rem;
+    /* font-size: 3rem; */
     text-align: center
 }
 
@@ -64,7 +63,7 @@ h5 {
 
 header {
     padding: 50px;
-    font-size: 4rem;
+    /* font-size: 4rem; */
     text-align: center;
     background: var(--principalColor)
 }
@@ -78,12 +77,12 @@ header p {
 header h3 {
     color: #fff;
     letter-spacing: 6px;
-    font-size: 5rem;
+    font-size: 2.4rem;
     margin: 0
 }
 
 header h3 i {
-    font-size: 3rem
+    font-size: 1.5rem
 }
 
 nav .navbar {
@@ -96,8 +95,8 @@ nav .navbar a {
     padding: 10px;
     margin: 10px 5px 10px 5px;
     color: #fff;
+    font-size: 1.6rem;
     text-decoration: none;
-    font-size: 3rem;
     text-align: center
 }
 
@@ -110,7 +109,6 @@ nav .navbar a.link.active,nav .navbar a.link:hover {
 nav .navbar .burger {
     display: none
 }
-
 
 .indispo {
     font-size: 3rem;
@@ -125,7 +123,6 @@ nav .navbar .burger {
     border-radius: 20px;
     cursor: pointer
 }
-
 
 .c-padding {
     padding: 8px 16px;
@@ -148,18 +145,7 @@ nav .navbar .burger {
     padding : 10px;
 }
 
-/* Responsive layout - when the screen is less than 900px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 900px) {
 
-  .row {
-    flex-direction: column;
-  }  
-
-  .leftcolumn, .rightcolumn {
-    width: 100%;
-  }
-
-}
 
 .fullcolumn {
     width: 100%;
@@ -268,7 +254,7 @@ footer {
 footer h3 {
     color: #fff;
     letter-spacing: 6px;
-    font-size: 5rem;
+    font-size: 2.4rem;
     margin: 0
 }
 
@@ -282,7 +268,7 @@ footer h3 span {
 
 footer .footer-copyright {
     color: #fff;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     margin: 10px 0 0 0
 }
@@ -295,7 +281,17 @@ footer .footer-center {
     padding: 20px 0 2px 0
 }
 
-@media screen and (max-width: 860px) {
+footer .footer-center h3 i {
+    font-size: 1.5rem;
+}
+
+@media screen and (max-width: 600px) {
+
+    header {
+        padding: 20px;
+        font-size: 2rem
+    }
+
     nav .navbar a:not(:first-child) {
         display:none
     }
@@ -319,5 +315,26 @@ footer .footer-center {
         float: none;
         display: block;
         text-align: left
+    }
+
+    .row {
+        flex-direction: column;
+    }  
+    
+    .leftcolumn, .rightcolumn {
+        width: 100%;
+    }
+
+    .containerUser{
+        justify-content: center;
+    }
+
+    .compte {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    th, td {
+        display: block;
     }
 }

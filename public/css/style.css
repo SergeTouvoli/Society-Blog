@@ -48,7 +48,6 @@ form#recherche .resultSearch {
   width: 80%;
 }
     
-
 form#recherche .resultSearch li {
   display: block;
   background: #fff;
@@ -152,50 +151,24 @@ form#register .btnUpload {
   font-weight: bold;
 }
 
-
 form#login .rememberMe {
   display: flex;
 }
 
 form#register .infoRegister,form#login .infoLogin  {
   text-align:center;
-  font-size: 2.6rem;
   margin:0
 }
 
-/* 
-form#register h2 , form#login h2 {
-  font-size: 4rem;
-} */
-
-form#register .infosFormat{
-  font-size: 2.5rem;
-}
-
-label {
-  font-size: 2.5rem;
-
-}
-
-/* form#register label, form#login label {
-  font-size: 2.5rem;
-} */
 .inputDiv {
-  /* display: flex; */
   width: 100%;
-  /* flex-direction: column; */
   margin-bottom: 15px;
 }
 
 .inputDiv.avatar {
   display: flex;
   justify-content: space-between;
-  /* align-items: baseline; */
   flex-direction: initial;
-}
-
-.inputDiv.avatar label {
-  font-size: 2.5rem;
 }
 
 .input{
@@ -217,6 +190,28 @@ input:valid {
   background-color: #fff;
 }
 
+form#addCategorie .btnGroup{
+  margin-top:10px;
+}
+
+form#addCategorie .btnPost {
+  border-radius: 10px;
+  background-color: var(--principalColor);
+  margin-top: 20px;
+  margin: 5px;
+  color: white;
+  font-size: 1.7rem;
+  font-weight: 700;
+  padding: 11px;
+  border: none;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+form#addCategorie .btnPost:hover {
+  background-color: #333;
+}
 
 form#login .inputDiv.passwordField {
   position: relative;
@@ -239,7 +234,6 @@ form#login .btnLogin , form#register .btnRegister,form#contact .btnContact{
   cursor: pointer;
   border: 1px solid;
   border-radius: 5px;
-  font-size: 1.7rem;
   opacity: 0.9;
   margin-top: 20px;    
 }
@@ -305,7 +299,6 @@ form#editInfos .btn-editInfos, .btn-changeAvatar {
   cursor: pointer;
   border: 1px solid;
   border-radius: 13px;
-  font-size: 1.7rem;
   background-color: #28A745 !important;
 }
 
@@ -348,14 +341,6 @@ form#editInfos#output_image{
   align-items: stretch;
 }
 
-.compte .name {
-  font-size: 3rem;
-}
-
-.compte > div {
-  font-size: 2.5rem;
-}
-
 .compte .left {
   display: flex;
   flex-direction: column;
@@ -388,18 +373,19 @@ form#editInfos#output_image{
   height:150px;
 }
 
-#infosCompte{
-  line-height: 35px;
-  font-size:2.9rem;
-}
-
 #infosCompte {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+#infosCompte h2{
+  font-size: 3rem;
+}
 
+#infosCompte .infos > p {
+  font-size: 2rem;
+}
 
 #editAvatar .containerUpload {
   position: relative;
@@ -439,10 +425,6 @@ form#editInfos#output_image{
 #editAvatar .containerUpload .middle {
   opacity: 1;
 }
-/* 
-#editAvatar p {
-  margin-top: 0;
-} */
 
 #editAvatar .middle .iconCamera {
   color: rgb(255, 255, 255);
@@ -486,7 +468,7 @@ img.avatar {
   border: none;
   color: #fff;
   width: 260px;
-  font-size: 2.5rem;
+  /* font-size: 2.5rem; */
   margin: 5px;
   text-align: center;
   padding: 11px;
@@ -544,7 +526,6 @@ img.avatar {
 
 .containerUser .card.profileCard  .btnGroup>.button {
   width: 230px;
-  font-size: 2rem;
 }
 
 .containerUser .card.profileCard .btnGroup button:hover {
@@ -554,59 +535,26 @@ img.avatar {
 .button.changeRole {
   background-color: var(--principalColor);
 }
-#viewAccount {
-  display: none;
+
+.img {
+  width: 100px;
+  margin-left: 20px;
+  border-radius: 20px;
 }
 
-@media screen and (max-width: 600px) {
-  .compte {
-    display: flex;
-    flex-direction: column;
-
-  }
-
-  #viewAccount{
-    display: block;
-  }
-
-  .containerUser{
-    justify-content: center;
-  }
-
-  th, td {
-    display: block;
-  }
-
-  .infos {
-    text-align: center;
-  }
-  
+.container_form {
+  width: 96%;
+  margin: 0 auto;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
 }
-
-  .img {
-    width: 100px;
-    margin-left: 20px;
-    border-radius: 20px;
-  }
-  
-  
-  .container_form {
-   width: 96%;
-    margin: 0 auto;
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-  }
-  
-
-
 
 .card-img {
   margin: 0 auto;
   width: 250px;
   display: flex;
   justify-content: center;
-  
 }
 
 .img_art {
@@ -634,7 +582,7 @@ img.avatar {
 }
 
 .card-article .title {
-  font-size: 4rem;
+  font-size: 2.4rem;
   transition: all 0.3s;
   user-select: none;
 }
@@ -642,13 +590,12 @@ img.avatar {
 .card-article .title:hover {
   color: var(--principalColor);
   text-decoration: underline;
-  font-size: 4.6rem;
+  font-size: 3rem;
 }
 
 .card-article  .info a i {
   margin-right: 5px;
 }
-
 
 .card-article .infosArticle {
   margin:10px 10px;
@@ -664,17 +611,10 @@ img.avatar {
   text-decoration: underline;
 }
 
-
 .card-article .infosArticle .infoAuthor i,
-.card-article .infosArticle .infoDate i
-{
-  font-size : 2.1rem;
+.card-article .infosArticle .infoDate i{
+  font-size : 1.5rem;
   margin-right: 5px;
-}
-
-.card-article .infosArticle .infoAuthor span,
-.card-article .infosArticle .infoDate span{
-  font-size: 3rem;
 }
 
 .card-article .card-footer{
@@ -685,7 +625,6 @@ img.avatar {
 }
 
 .card-article .card-footer .nbComments {
-  font-size: 2.2rem;
   color: black;
 }
 
@@ -715,7 +654,7 @@ img.avatar {
 }
 
 .fin {
-  font-size: 2.7rem;
+  font-size: 2.4rem;
 }
 
 .tag {
@@ -736,7 +675,7 @@ img.avatar {
 
 .back {
   float: left;
-  font-size: 2rem;
+  /* font-size: 2rem; */
   margin: 15px 10px
 }
 
@@ -768,7 +707,8 @@ img.avatar {
     
 .content {
   color: #474747;
-  font-family: 'Roboto Condensed', sans-serif;
+  /* font-family: 'Roboto Condensed', sans-serif; */
+  font-size: 2rem;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -831,7 +771,7 @@ form#addOrEditPost .btnPost {
   margin-top: 20px;
   margin: 5px;
   color: white;
-  font-size: 1.7rem;
+  font-size: 1rem;
   font-weight: 700;
   padding: 11px;
   border: none;
@@ -879,7 +819,6 @@ hr {
 
 }
 .searchAndInfos .listInfos li {
-  font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 14px;
 }
@@ -891,14 +830,13 @@ hr {
   border-radius: 20px;
   padding: 13px;
   text-transform: uppercase;
-  font-size: 2.5rem;
   transition: all 0.3s;
 }
 
 .categories a:hover, .recentsPosts a:hover {
   color: var(--principalColor);
   text-decoration: underline;
-  font-size: 2.9rem;
+  font-size: 2rem;
 }
 
 #nbrC {
@@ -933,7 +871,6 @@ hr {
 
 #messageBox> p {
   margin: 0;
-  font-size: 2.5rem;
 }
 
 .valid {
@@ -960,7 +897,6 @@ hr {
 #conform {
   display: none;
   margin-left: 23px;
-  font-size:2.7rem;
 }
 
 .commentSection {
@@ -993,7 +929,7 @@ hr {
 }
 
 .commentSection .commentAuthor a  {
-  font-size: 2.2rem;
+  /* font-size: 2.2rem; */
   /* margin-right: 15px; */
   color:white;
   transition: all 0.5s;
@@ -1053,7 +989,6 @@ form#commentForm legend i {
 
 form#commentForm legend {
   text-align:center;
-  font-size: 2.6rem;
   margin-top: 140px;
 }
 
@@ -1089,7 +1024,7 @@ form#commentForm .btnComment {
   color: black;
   float: left;
   margin: 4px;
-  font-size: 3rem;
+  font-size: 2rem;
   padding: 8px 22px;
   text-decoration: none;
 }
@@ -1104,7 +1039,6 @@ form#commentForm .btnComment {
   background-color: #ddd;
   border-radius: 5px;
 }
-
 
 #managePosts .btnGroup .btnAddPost,#myPosts .btnGroup .btnAddPost{
   display: flex;
@@ -1129,13 +1063,11 @@ form#commentForm .btnComment {
 }
 
 #managePosts .btnGroup .btnAddPost i ,#myPosts .btnGroup .btnAddPost i {
-  font-size:2.7rem;
+  font-size: 1.5rem;
   margin-right: 5px;
 }
 
-
 /* MODAL */
-
 .modal {
   display: flex;
   position: fixed; 
@@ -1149,11 +1081,11 @@ form#commentForm .btnComment {
   background-color: rgb(0,0,0); 
   background-color: rgba(0,0,0,0.4); 
 }
+
 .modal .modal-content .modal-content-msg i{
   margin-right: 1rem;
-  font-size: 3rem;
-
 }
+
 .modal.error .modal-content,.modal.success .modal-content {
   margin: auto;
   padding: 20px;
@@ -1161,6 +1093,7 @@ form#commentForm .btnComment {
   border-radius: 0.25rem;
   min-width: 350px;
 }
+
 .modal.success .modal-content {
   color: #0f5132;
   background-color: #d1e7dd;
@@ -1192,12 +1125,14 @@ form#commentForm .btnComment {
   text-align: center;
 }
 
+#managePosts {
+  margin: 10px;
+}
 
 table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-  border: 1px solid #ddd;
 }
 
 table a {
@@ -1212,7 +1147,7 @@ table a {
 th, td {
   text-align: center;
   padding: 16px;
-  font-size: 3.2rem;
+  font-size: 2rem;
   font-weight: 900;
 }
 
@@ -1269,7 +1204,7 @@ tr:nth-child(even) {
   background-color: var(--principalColor);
   color: white;
   padding: 14px 28px;
-  font-size: 3rem;
+  font-size: 2rem;
   cursor: pointer;
   text-align: center;
   margin-top: 20px;
@@ -1375,12 +1310,6 @@ tr:nth-child(even) {
   display: none;
 }
 
-
-label {
-  font-size: 2.3rem;
-}
-
 .select-items div:hover, .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
-}
-
+}                               
