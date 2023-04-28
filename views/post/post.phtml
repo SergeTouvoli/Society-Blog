@@ -1,83 +1,134 @@
-<?php
-ob_start();
-?>
+<!DOCTYPE html>
+<html lang="fr-FR">
 
-    <div class="row">
-        <div class="leftcolumn">
-            <div class="card-article" data-id ="<?= $post['post_id'] ?>">
-                <h2 class="title"><?= $pageTitle ?></h2>
-                <div class="card-img">
-                    <img src="<?= URL ?>public/images/imgPost/<?= $post['post_image'] ?>" class="img_art" alt="image">
-                </div>
-                <div class="infosArticle">
-                    <a href="<?= URL.PAGE_COMPTE ?>/<?= htmlspecialchars($post['user_pseudo']) ?>" class="infoAuthor" > 
-                        <i class="fa-solid fa-user-pen" ></i>
-                        <span><?= htmlspecialchars($post['user_pseudo']) ?></span>
-                    </a>
-                    <p class="infoDate">
-                        <i class="fa-solid fa-calendar-days"></i>
-                        <span><?= Tools::convertTimestampToFrenchDate($post['post_created_date']) ?></span>
-                    </p>
-                </div>
+    <head>
+        <meta charset="UTF-8">
+        <title><?=(isset($pageTitle))?$pageTitle:""; ?></title>
+        <meta name="description" content="<?= (isset($pageDescription)) ? $pageDescription : "";?>"/>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="language" content="French">
+        <meta name="author" content="Serge Touvoli">
 
-                <div class="content"><?= nl2br($post['post_content']) ?></div>
-                           
-                <div class="card-footer">
-                    <p class="back"><a href="javascript:history.back()" class="text-white"><span>Retour</span></a></p> 
-                    <p class="fin">FIN.</p>
-                </div>
+        <!-- Open Graph -->
+        <meta property="og:title" content="<?= $pageTitle ?>">
+        <meta property="og:description" content="<?= substr($post['post_content'], 0, 180). "..." ?>">
+        <meta property="og:image" content="<?= URL ?>public/images/imgPost/<?= $post['post_image'] ?>">
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="<?= URL.PAGE_POST ?>/<?= $post['post_slug']; ?>">
+        <meta property="og:site_name" content="SOCIETY">
+        <meta property="og:locale" content="fr_FR">
+        <meta property="article:author" content="<?= htmlspecialchars($post['user_pseudo']) ?>">
 
-                <div class="" id="listComments"></div>
-
-                <form method="POST" action="" id="commentForm">
-
-                    <legend> 
-                        <i class="fa-solid fa-comments"></i>
-                        <span>Laisser un commentaire</span>
-                    </legend>
-                    <p class="text-center"> 
-                        <span id="spanInfos">
-                            Seul les membres connectés peuvent laisser un commentaire
-                        </span>
-                    </p>
-                    <div class="errorComment"></div>
-                    <div class="successComment"></div>
-                    <label> Commentaire :</label>
-                    <input type="text" name="idPost" value="<?= intval($post['post_id']) ?>" hidden>
-                                            
-                    <textarea id="comment_content" data-infos="infosComment"  name="comment_content" placeholder="Ecrivez un commentaire..."  ><?= (isset($post['comment_content'])) ? htmlspecialchars($post['comment_content']) : ""  ?></textarea>
-                    <span class="infosComment spanInfos"></span>    
-
-                    <input class="btnComment" type="submit" name="commentPost" value="Commenter">
-                </form>
-                <p class="infosComment"></p>
-
-            </div>
-          
-        </div>
-      
-        <div class="rightcolumn">
-            <div class="card">
-                <?php include("views/commons/_searchBar.phtml"); ?>
-            </div>
-            
-            <div class="card">
-                <?php include("views/commons/_categories.phtml"); ?>
-            </div>
-
-            <div class="card">
-                <?php include("views/commons/_recentPosts.phtml"); ?>
-            </div>
-        </div>
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         
-    </div>
-<?php
-$scripts = '
-<script src="'.URL.'public/js/comment.min.js"></script>
-<script src="'.URL.'public/js/searchPosts.min.js"></script>';
-$content = ob_get_clean();
-require "views/commons/template.phtml";
-?>
+        <!-- Font google Roboto -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
 
+        <!-- Font google PTserif -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&display=swap" rel="stylesheet">
+        
+        <!-- Font google Rajdhani -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
+
+        <!-- CSS Files -->
+        <link rel="stylesheet" href="<?= URL ?>public/css/template.min.css?v=<?= time(); ?>">
+        <link rel="stylesheet" href="<?= URL ?>public/css/style.min.css?v=<?= time(); ?>">
+    </head>
+
+    <body>
+        <?php include('views/commons/_modalMsg.phtml'); ?>
+        
+        <header><?php include('views/commons/_header.phtml'); ?></header>
+
+        <nav><?php include('views/commons/_navbar.phtml'); ?></nav>
+
+        <main>
+            <div class="row">
+                <div class="leftcolumn">
+                    <div class="card-article" data-id ="<?= $post['post_id'] ?>">
+                        <h2 class="title"><?= $pageTitle ?></h2>
+                        <div class="card-img">
+                            <img src="<?= URL ?>public/images/imgPost/<?= $post['post_image'] ?>" class="img_art" alt="image">
+                        </div>
+                        <div class="infosArticle">
+                            <a href="<?= URL.PAGE_COMPTE ?>/<?= htmlspecialchars($post['user_pseudo']) ?>" class="infoAuthor" > 
+                                <i class="fa-solid fa-user-pen" ></i>
+                                <span><?= htmlspecialchars($post['user_pseudo']) ?></span>
+                            </a>
+                            <p class="infoDate">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                <span><?= Tools::convertTimestampToFrenchDate($post['post_created_date']) ?></span>
+                            </p>
+                        </div>
+
+                        <div class="content"><?= nl2br($post['post_content']) ?></div>
+                                
+                        <div class="card-footer">
+                            <p class="back"><a href="javascript:history.back()" class="text-white"><span>Retour</span></a></p> 
+                            <p class="fin">FIN.</p>
+                        </div>
+
+                        <div class="" id="listComments"></div>
+
+                        <form method="POST" action="" id="commentForm">
+
+                            <legend> 
+                                <i class="fa-solid fa-comments"></i>
+                                <span>Laisser un commentaire</span>
+                            </legend>
+                            <p class="text-center"> 
+                                <span id="spanInfos">
+                                    Seul les membres connectés peuvent laisser un commentaire
+                                </span>
+                            </p>
+                            <div class="errorComment"></div>
+                            <div class="successComment"></div>
+                            <label> Commentaire :</label>
+                            <input type="text" name="idPost" value="<?= intval($post['post_id']) ?>" hidden>
+                                                    
+                            <textarea id="comment_content" data-infos="infosComment"  name="comment_content" placeholder="Ecrivez un commentaire..."  ><?= (isset($post['comment_content'])) ? htmlspecialchars($post['comment_content']) : ""  ?></textarea>
+                            <span class="infosComment spanInfos"></span>    
+
+                            <input class="btnComment" type="submit" name="commentPost" value="Commenter">
+                        </form>
+                        <p class="infosComment"></p>
+
+                    </div>
+                
+                </div>
+            
+                <div class="rightcolumn">
+                    <div class="card">
+                        <?php include("views/commons/_searchBar.phtml"); ?>
+                    </div>
+                    
+                    <div class="card">
+                        <?php include("views/commons/_categories.phtml"); ?>
+                    </div>
+
+                    <div class="card">
+                        <?php include("views/commons/_recentPosts.phtml"); ?>
+                    </div>
+                </div>
+                
+            </div>
+        </main>
+
+        <footer><?php include('views/commons/_footer.phtml'); ?></footer>
+
+        <script src="<?= URL ?>public/js/functions.min.js"></script>
+        <script src="<?= URL ?>public/js/main.min.js"></script>
+        <script src="<?= URL ?>public/js/comment.min.js"></script>
+        <script src="<?= URL ?>public/js/searchPosts.min.js"></script>
+    </body>
+</html>
 
 
